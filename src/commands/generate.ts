@@ -36,9 +36,8 @@ export default class Generate extends Command {
   static args = [{ name: "component name" }];
 
   async run() {
-    const { args, flags } = this.parse(Generate);
+    const { flags } = this.parse(Generate);
 
-    const name = flags.name || "world";
     const template = flags.template || "";
     this.log(
       `Generating new component using template ${template} at ./src/components/${name}.js`
