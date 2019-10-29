@@ -1,5 +1,4 @@
-eb-scripts
-==========
+# eb-scripts
 
 A CLI and scripts used at Echobind
 
@@ -9,11 +8,16 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-* [Usage](#usage)
-* [Commands](#commands)
-<!-- tocstop -->
+
+- [eb-scripts](#eb-scripts)
+- [Usage](#usage)
+- [Commands](#commands)
+  <!-- tocstop -->
+
 # Usage
+
 <!-- usage -->
+
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
@@ -25,31 +29,36 @@ USAGE
   $ eb-scripts COMMAND
 ...
 ```
+
 <!-- usagestop -->
+
 # Commands
+
 <!-- commands -->
-* [`eb-scripts hello [FILE]`](#eb-scripts-hello-file)
-* [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
 
-## `eb-scripts hello [FILE]`
+- [`eb-scripts generate [COMPONENT NAME]`](#eb-scripts-generate-component-name)
+- [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
 
-describe the command here
+## `eb-scripts generate [COMPONENT NAME]`
+
+generates new files
 
 ```
 USAGE
-  $ eb-scripts hello [FILE]
+  $ eb-scripts generate [COMPONENT NAME]
 
 OPTIONS
-  -f, --force
-  -h, --help       show CLI help
-  -n, --name=name  name to print
+  -h, --help               show CLI help
+  -n, --name=name          name to print
+  -t, --template=template  template to use
 
 EXAMPLE
-  $ eb-scripts hello
-  hello world from ./src/hello.ts!
+  $ eb-scripts generate -t react-component -n MyNewComponent
+       Loaded templates: _templates
+       added: src/MyNewComponent.js
 ```
 
-_See code: [src/commands/hello.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0/src/commands/hello.ts)_
+_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0/src/commands/generate.ts)_
 
 ## `eb-scripts help [COMMAND]`
 
@@ -67,4 +76,5 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
+
 <!-- commandsstop -->

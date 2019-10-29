@@ -33,7 +33,7 @@ export default class Generate extends Command {
     template: flags.string({ char: "t", description: "template to use" })
   };
 
-  static args = [{ name: "file", template: "" }]; // Add default template here
+  static args = [{ name: "component name" }];
 
   async run() {
     const { args, flags } = this.parse(Generate);
