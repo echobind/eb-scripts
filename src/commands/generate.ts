@@ -30,6 +30,7 @@ export default class Generate extends Command {
     // flag with a value (-n, --name=VALUE)
     name: flags.string({ char: "n", description: "name to print" }),
     // flag with a value (-t, --template=VALUE)
+    // name should correspond with one of the following names in /_templates
     template: flags.string({ char: "t", description: "template to use" })
   };
 
@@ -37,23 +38,26 @@ export default class Generate extends Command {
 
   async run() {
     const { flags } = this.parse(Generate);
-
     const template = flags.template || "";
+    const name = flags.name || "DefaultName";
+    let templateLocation = "";
+
     this.log(
       `Generating new component using template ${template} at ./src/components/${name}.js`
     );
+
     // If they do have templates, use theirs
     if (hasTemplates) {
-      execSync(
-        `HYGEN_TMPLS=${theirTemplatePath} yarn g:component ${name} --path=${pathWhereScriptIsRunning}`,
-        { cwd: rootDirectory, stdio: "inherit" }
-      );
+      templateLocation = `HYGEN_TMPLS=${theirTemplatePath}`;
     } else {
       // Otherwise, use ours
-      execSync(
-        `HYGEN_TMPLS=${defaultTemplatePath} yarn g:component ${name} --path=${pathWhereScriptIsRunning}`,
-        { cwd: rootDirectory, stdio: "inherit" }
-      );
+      templateLocation = `HYGEN_TMPLS=${defaultTemplatePath}`;
     }
+
+    // Generate template
+    execSync(
+      `${templateLocation} yarn gen ${template} new ${name} --path=${pathWhereScriptIsRunning}`,
+      { cwd: rootDirectory, stdio: "inherit" }
+    );
   }
 }
