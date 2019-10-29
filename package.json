@@ -1,7 +1,7 @@
 {
   "name": "eb-scripts",
   "description": "A CLI and scripts used at Echobind",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "author": "Joe Previte @jsjoeio",
   "bin": {
     "eb-scripts": "./bin/run"
@@ -50,7 +50,8 @@
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
     "version": "oclif-dev readme && git add README.md",
-    "gen": "hygen"
+    "gen": "hygen",
+    "semantic-release": "semantic-release"
   },
   "types": "lib/index.d.ts"
 }
