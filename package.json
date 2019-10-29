@@ -18,6 +18,7 @@
     "@oclif/dev-cli": "^1",
     "@types/node": "^10",
     "globby": "^10",
+    "semantic-release": "^15.13.28",
     "ts-node": "^8",
     "typescript": "^3.3"
   },
