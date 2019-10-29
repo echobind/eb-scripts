@@ -11,6 +11,7 @@
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
+    "hygen": "^5.0.1",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -47,7 +48,8 @@
     "postpack": "rm -f oclif.manifest.json",
     "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
     "test": "echo NO TESTS",
-    "version": "oclif-dev readme && git add README.md"
+    "version": "oclif-dev readme && git add README.md",
+    "g:component": "hygen component new"
   },
   "types": "lib/index.d.ts"
 }
