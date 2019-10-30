@@ -8,12 +8,10 @@
   },
   "bugs": "https://github.com/echobind/eb-scripts/issues",
   "dependencies": {
-    "@babel/preset-typescript": "^7.6.0",
     "@oclif/command": "^1",
     "@oclif/config": "^1",
     "@oclif/plugin-help": "^2",
     "hygen": "^5.0.1",
-    "jest": "^24.9.0",
     "tslib": "^1"
   },
   "devDependencies": {
@@ -23,6 +21,7 @@
     "@types/node": "^12.12.3",
     "@types/jest": "^24.0.21",
     "globby": "^10",
+    "jest": "^24.9.0",
     "semantic-release": "^15.13.28",
     "ts-jest": "^24.1.0",
     "ts-node": "^8",
