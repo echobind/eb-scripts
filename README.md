@@ -12,6 +12,7 @@ A CLI and scripts used at Echobind
 - [eb-scripts](#eb-scripts)
 - [Usage](#usage)
 - [Commands](#commands)
+- [Contributing](#contributing)
   <!-- tocstop -->
 
 # Usage
@@ -23,7 +24,7 @@ $ npm install -g eb-scripts
 $ eb-scripts COMMAND
 running command...
 $ eb-scripts (-v|--version|version)
-eb-scripts/0.0.0 darwin-x64 node-v10.16.0
+eb-scripts/0.0.0-development darwin-x64 node-v10.16.0
 $ eb-scripts --help [COMMAND]
 USAGE
   $ eb-scripts COMMAND
@@ -58,7 +59,7 @@ EXAMPLE
        added: src/MyNewComponent.js
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0-development/src/commands/generate.ts)_
 
 ## `eb-scripts help [COMMAND]`
 
@@ -78,3 +79,7 @@ OPTIONS
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
 
 <!-- commandsstop -->
+
+# Contributing
+
+If you're interested in contributing, please read our [CONTRIBUTING](https://github.com/echobind/eb-scripts/blob/master/CONTRIBUTING.md) guide.
