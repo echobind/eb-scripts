@@ -14,14 +14,5 @@ const theirTemplatePath = pathWhereScriptIsRunning + "/_templates";
 
 const hasTemplates = fs.existsSync(theirTemplatePath);
 
-export const getTemplateLocation = (): string => {
-  // Default to our template
-  let templateLocation = `HYGEN_TMPLS=${DEFAULT_TEMPLATE_PATH}`;
-
-  // If they do have templates, use theirs
-  if (hasTemplates) {
-    templateLocation = `HYGEN_TMPLS=${theirTemplatePath}`;
-  }
-
-  return templateLocation;
-};
+export const getTemplateLocation = (): string =>
+  hasTemplates ? theirTemplatePath : DEFAULT_TEMPLATE_PATH;

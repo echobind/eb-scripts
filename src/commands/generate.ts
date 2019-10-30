@@ -47,7 +47,8 @@ export default class Generate extends Command {
     const { flags } = this.parse(Generate);
     const template = flags.template || DEFAULT_TEMPLATE_NAME;
     const name = flags.name || DEFAULT_COMPONENT_NAME;
-    let templateLocation = "";
+    const templateLocation = getTemplateLocation();
+    const templatePath = `HYGEN_TMPLS=${templateLocation}`;
 
     this.log(
       `Generating new component using template ${template} at ./src/components/${name}.js`
@@ -55,7 +56,7 @@ export default class Generate extends Command {
 
     // Generate template
     execSync(
-      `${templateLocation} yarn gen ${template} new ${name} --path=${pathWhereScriptIsRunning}`,
+      `${templatePath} yarn gen ${template} new ${name} --path=${pathWhereScriptIsRunning}`,
       { cwd: rootDirectory, stdio: "inherit" }
     );
   }
