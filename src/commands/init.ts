@@ -1,7 +1,6 @@
 import { Command, flags } from "@oclif/command";
 import { execSync } from "child_process";
 import * as fs from "fs";
-import * as path from "path";
 
 const DEFAULT_PROJECT_NAME = "react";
 
@@ -83,10 +82,10 @@ export default class Init extends Command {
     this.log(`Initializing new ${project} project`);
 
     // Otherwise, it is valid, so we tell TypeScript to assert it as a ProjectType
-    const scriptToAdd: Scripts = scriptsByProject[project as ProjectType];
+    const projectScripts: Scripts = scriptsByProject[project as ProjectType];
 
     // Combine their scripts with our scripts
-    const updatedScripts = { ...theirScripts, ...scriptToAdd };
+    const updatedScripts = { ...theirScripts, ...projectScripts };
     packageJson.scripts = updatedScripts;
 
     this.log(`Writing to package.json scripts...`);
