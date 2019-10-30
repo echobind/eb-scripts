@@ -8,44 +8,45 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-
-- [eb-scripts](#eb-scripts)
-- [Usage](#usage)
-- [Commands](#commands)
-  <!-- tocstop -->
+* [eb-scripts](#eb-scripts)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Contributing](#contributing)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
 running command...
 $ eb-scripts (-v|--version|version)
-eb-scripts/0.0.0 darwin-x64 node-v10.16.0
+eb-scripts/0.0.0-development darwin-x64 node-v10.16.0
 $ eb-scripts --help [COMMAND]
 USAGE
   $ eb-scripts COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
+* [`eb-scripts generate TEMPLATE NAME [COMPONENT NAME]`](#eb-scripts-generate-template-name-component-name)
+* [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
 
-- [`eb-scripts generate [COMPONENT NAME]`](#eb-scripts-generate-component-name)
-- [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
-
-## `eb-scripts generate [COMPONENT NAME]`
+## `eb-scripts generate TEMPLATE NAME [COMPONENT NAME]`
 
 generates new files
 
 ```
 USAGE
-  $ eb-scripts generate [COMPONENT NAME]
+  $ eb-scripts generate TEMPLATE NAME [COMPONENT NAME]
+
+ARGUMENTS
+  TEMPLATE NAME   (react-component) [default: react-component] the template you want to use
+  COMPONENT NAME  [default: MyNewComponent] the name of the component or file you want to generate
 
 OPTIONS
   -h, --help               show CLI help
@@ -58,7 +59,7 @@ EXAMPLE
        added: src/MyNewComponent.js
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0-development/src/commands/generate.ts)_
 
 ## `eb-scripts help [COMMAND]`
 
@@ -76,5 +77,8 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
-
 <!-- commandsstop -->
+
+# Contributing
+
+If you're interested in contributing, please read our [CONTRIBUTING](https://github.com/echobind/eb-scripts/blob/master/CONTRIBUTING.md) guide.

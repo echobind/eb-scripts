@@ -15,6 +15,9 @@ const theirTemplatePath = pathWhereScriptIsRunning + "/_templates";
 // Check if they have a template directory
 const hasTemplates = fs.existsSync(theirTemplatePath);
 
+const DEFAULT_COMPONENT_NAME = "MyNewComponent";
+const DEFAULT_TEMPLATE_NAME = "react-component";
+
 export default class Generate extends Command {
   static description = "generates new files";
 
@@ -27,19 +30,32 @@ export default class Generate extends Command {
 
   static flags = {
     help: flags.help({ char: "h" }),
-    // flag with a value (-n, --name=VALUE)
-    name: flags.string({ char: "n", description: "name to print" }),
     // flag with a value (-t, --template=VALUE)
     // name should correspond with one of the following names in /_templates
-    template: flags.string({ char: "t", description: "template to use" })
+    template: flags.string({ char: "t", description: "template to use" }),
+    // flag with a value (-n, --name=VALUE)
+    name: flags.string({ char: "n", description: "name to print" })
   };
 
-  static args = [{ name: "component name" }];
+  static args = [
+    {
+      name: "template name",
+      description: "the template you want to use",
+      required: true,
+      default: DEFAULT_TEMPLATE_NAME,
+      options: ["react-component"]
+    },
+    {
+      name: "component name",
+      description: "the name of the component or file you want to generate",
+      default: DEFAULT_COMPONENT_NAME
+    }
+  ];
 
   async run() {
     const { flags } = this.parse(Generate);
-    const template = flags.template || "";
-    const name = flags.name || "DefaultName";
+    const template = flags.template || DEFAULT_TEMPLATE_NAME;
+    const name = flags.name || DEFAULT_COMPONENT_NAME;
     let templateLocation = "";
 
     this.log(
