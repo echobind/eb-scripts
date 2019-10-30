@@ -21,10 +21,12 @@
     "@semantic-release/git": "^7.0.17",
     "@semantic-release/npm": "^5.3.2",
     "@types/node": "^12.12.3",
+    "@types/jest": "^24.0.21",
     "globby": "^10",
     "semantic-release": "^15.13.28",
+    "ts-jest": "^24.1.0",
     "ts-node": "^8",
-    "typescript": "^3.3"
+    "typescript": "^3.6.4"
   },
   "engines": {
     "node": ">=8.0.0"

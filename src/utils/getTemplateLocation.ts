@@ -4,7 +4,7 @@ import * as path from "path";
 // The root of our package, so that we can leverage the scripts in the `package.json`
 export const rootDirectory = path.join(__dirname, "..");
 
-const DEFAULT_TEMPLATE_PATH = `${rootDirectory}/_templates`;
+export const DEFAULT_TEMPLATE_PATH = `${rootDirectory}/_templates`;
 
 // Grab the path of the user's project
 export const pathWhereScriptIsRunning = process.cwd();
