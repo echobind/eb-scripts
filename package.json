@@ -17,6 +17,7 @@
   "devDependencies": {
     "@oclif/dev-cli": "^1",
     "@semantic-release/git": "^7.0.17",
+    "@semantic-release/npm": "^5.3.2",
     "@types/node": "^10",
     "globby": "^10",
     "semantic-release": "^15.13.28",
@@ -57,6 +58,7 @@
   "types": "lib/index.d.ts",
   "release": {
     "plugins": [
+      "@semantic-release/npm",
       [
         "@semantic-release/git",
         {
