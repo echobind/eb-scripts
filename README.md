@@ -45,11 +45,11 @@ generates new files
 
 ```
 USAGE
-  $ eb-scripts generate TEMPLATENAME
+  $ eb-scripts generate TEMPLATE NAME [COMPONENT NAME]
 
 ARGUMENTS
-  TEMPLATENAME  (react-component|react-typescript-component|react-native-typescript-component|react-native-typescript-sc
-                reen|react-native-e2e|util-typescript) the template you want to use
+  TEMPLATE NAME   (react-component) [default: react-component] the template you want to use
+  COMPONENT NAME  [default: MyNewComponent] the name of the component or file you want to generate
 
 OPTIONS
   -h, --help       show CLI help
