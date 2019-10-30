@@ -3,14 +3,12 @@ import * as fs from "fs";
 import * as path from "path";
 
 const DEFAULT_PROJECT_NAME = "react";
-const writeFile = (fileName: string, data: any) =>
-  fs.writeFileSync(path.join(__dirname, fileName), data);
 
 /**
  * @description a script that is used in the `package.json` scripts
  * @example "g:component": "eb-scripts generate -t react-component -n"
  */
-type Script = {
+type Scripts = {
   /* A script */
   [script in string]: string;
 };
@@ -26,17 +24,15 @@ type ProjectType = "react";
  * @description the available options for generate scripts that may be added to a user's `package.json`
  */
 type ScriptByProject = {
-  [project in ProjectType]: Script[];
+  [project in ProjectType]: Scripts;
 };
 
 // Grab the path of the user's project
 const pathWhereScriptIsRunning = process.cwd();
 const scriptsByProject: ScriptByProject = {
-  react: [
-    {
-      "g:component": "eb-scripts generate -t react-component -n"
-    }
-  ]
+  react: {
+    "g:component": "eb-scripts generate -t react-component -n"
+  }
 };
 export default class Init extends Command {
   static description =
@@ -86,13 +82,14 @@ export default class Init extends Command {
     this.log(`Initializing new ${project} project`);
 
     // Otherwise, it is valid, so we tell TypeScript to assert it as a ProjectType
-    const scriptToAdd: Script[] = scriptsByProject[project as ProjectType];
+    const scriptToAdd: Scripts = scriptsByProject[project as ProjectType];
 
     // Combine their scripts with our scripts
     const updatedScripts = { ...theirScripts, ...scriptToAdd };
+    console.log(JSON.stringify(updatedScripts));
     packageJson.scripts = updatedScripts;
     this.log(`Writing to package.json scripts...`);
-    writeFile(packageJsonLocation, JSON.stringify(packageJson, null, 2));
+    fs.writeFileSync(packageJsonLocation, JSON.stringify(packageJson, null, 2));
     this.log(`Done.`);
   }
 }
