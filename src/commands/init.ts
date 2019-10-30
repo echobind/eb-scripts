@@ -1,9 +1,43 @@
 import { Command, flags } from "@oclif/command";
+import * as fs from "fs";
+import * as path from "path";
+
+const DEFAULT_PROJECT_NAME = "react";
+const writeFile = (fileName: string, data: any) =>
+  fs.writeFileSync(path.join(__dirname, fileName), data);
+
+/**
+ * @description a script that is used in the `package.json` scripts
+ * @example "g:component": "eb-scripts generate -t react-component -n"
+ */
+type Script = {
+  /* A script */
+  [script in string]: string;
+};
+
+/**
+ * @description valid project type
+ * @example `react`
+ * @todo eventually, we'll add others like `react-native`, `react-typescript`, `node`, etc.
+ */
+type ProjectType = "react";
+
+/**
+ * @description the available options for generate scripts that may be added to a user's `package.json`
+ */
+type ScriptByProject = {
+  [project in ProjectType]: Script[];
+};
 
 // Grab the path of the user's project
 const pathWhereScriptIsRunning = process.cwd();
-const DEFAULT_PROJECT_NAME = "react";
-
+const scriptsByProject: ScriptByProject = {
+  react: [
+    {
+      "g:component": "eb-scripts generate -t react-component -n"
+    }
+  ]
+};
 export default class Init extends Command {
   static description =
     "initializes project by installing `eb-scripts` and adding scripts to `package.json`";
@@ -23,18 +57,42 @@ export default class Init extends Command {
     {
       name: "project",
       required: true,
-      description: "The languague or framework of the project",
+      description: "The language or framework of the project",
       default: "react",
-      options: ["react"]
+      options: ["react"] as ProjectType[]
     }
   ];
 
   async run() {
     const { flags } = this.parse(Init);
     const project = flags.project || DEFAULT_PROJECT_NAME;
-    const packageJson = pathWhereScriptIsRunning + "/package.json";
+    // Grab their package Json
+    const packageJsonLocation = `${pathWhereScriptIsRunning}/package.json`;
+    const packageJson = require(packageJsonLocation);
+    const theirScripts = packageJson.scripts;
+    const validProjectTypes = Object.keys(scriptsByProject);
+    const isValidProject = validProjectTypes.includes(project);
+
+    // Check if project is valid
+    if (!isValidProject) {
+      console.error(`
+        Error: invalid project type.
+        Please use one of the following:
+        ${validProjectTypes}
+        `);
+      return;
+    }
 
     this.log(`Initializing new ${project} project`);
-    this.log(`Grabbing package.json from ${packageJson}`);
+
+    // Otherwise, it is valid, so we tell TypeScript to assert it as a ProjectType
+    const scriptToAdd: Script[] = scriptsByProject[project as ProjectType];
+
+    // Combine their scripts with our scripts
+    const updatedScripts = { ...theirScripts, ...scriptToAdd };
+    packageJson.scripts = updatedScripts;
+    this.log(`Writing to package.json scripts...`);
+    writeFile(packageJsonLocation, JSON.stringify(packageJson, null, 2));
+    this.log(`Done.`);
   }
 }
