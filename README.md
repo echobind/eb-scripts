@@ -8,17 +8,15 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-
-- [eb-scripts](#eb-scripts)
-- [Usage](#usage)
-- [Commands](#commands)
-- [Contributing](#contributing)
-  <!-- tocstop -->
+* [eb-scripts](#eb-scripts)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Contributing](#contributing)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
@@ -30,23 +28,25 @@ USAGE
   $ eb-scripts COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
+* [`eb-scripts generate TEMPLATE NAME [COMPONENT NAME]`](#eb-scripts-generate-template-name-component-name)
+* [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
 
-- [`eb-scripts generate [COMPONENT NAME]`](#eb-scripts-generate-component-name)
-- [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
-
-## `eb-scripts generate [COMPONENT NAME]`
+## `eb-scripts generate TEMPLATE NAME [COMPONENT NAME]`
 
 generates new files
 
 ```
 USAGE
-  $ eb-scripts generate [COMPONENT NAME]
+  $ eb-scripts generate TEMPLATE NAME [COMPONENT NAME]
+
+ARGUMENTS
+  TEMPLATE NAME   (react-component) [default: react-component] the template you want to use
+  COMPONENT NAME  [default: MyNewComponent] the name of the component or file you want to generate
 
 OPTIONS
   -h, --help               show CLI help
@@ -77,7 +77,6 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
-
 <!-- commandsstop -->
 
 # Contributing
