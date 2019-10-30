@@ -1,4 +1,4 @@
-const fs = jest.genMockFromModule("fs") as any;
+const fs = jest.genMockFromModule<any>("fs");
 
 fs.existsSync = () => true;
 
