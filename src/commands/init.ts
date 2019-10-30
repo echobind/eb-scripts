@@ -1,4 +1,5 @@
 import { Command, flags } from "@oclif/command";
+import { execSync } from "child_process";
 import * as fs from "fs";
 import * as path from "path";
 
@@ -86,10 +87,31 @@ export default class Init extends Command {
 
     // Combine their scripts with our scripts
     const updatedScripts = { ...theirScripts, ...scriptToAdd };
-    console.log(JSON.stringify(updatedScripts));
     packageJson.scripts = updatedScripts;
+
     this.log(`Writing to package.json scripts...`);
     fs.writeFileSync(packageJsonLocation, JSON.stringify(packageJson, null, 2));
-    this.log(`Done.`);
+
+    // *******************
+    // Install `eb-scripts`
+    // We do this so that the scripts we added to their package.json
+    // work correctly.
+    // *******************
+
+    this.log(`Installing eb-scripts as a devDependency`);
+
+    const yarnLockPath = pathWhereScriptIsRunning + "/yarn.lock";
+    const hasYarnLock = fs.existsSync(yarnLockPath);
+
+    // Check if they're using yarn
+    if (hasYarnLock) {
+      execSync("yarn add --dev eb-scripts", { cwd: pathWhereScriptIsRunning });
+    } else {
+      execSync("npm add --save-dev eb-scripts", {
+        cwd: pathWhereScriptIsRunning
+      });
+    }
+
+    this.log(`Done initializing.`);
   }
 }
