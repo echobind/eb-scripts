@@ -2,8 +2,9 @@ import * as fse from "fs-extra";
 
 /**
  *
- * @param pathToTempDir the path to the temporary directory
+ * @description removes a directory
+ * @param pathToDir the path to the directory
  */
-export function removeTempDir(pathToTempDir: string) {
-  return fse.remove(pathToTempDir);
+export function removeTempDir(pathToDir: string) {
+  return fse.remove(pathToDir);
 }
