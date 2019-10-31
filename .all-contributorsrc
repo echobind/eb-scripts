@@ -16,6 +16,15 @@
         "example",
         "maintenance"
       ]
+    },
+    {
+      "login": "cmejet",
+      "name": "Jenn",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/7119624?v=4",
+      "profile": "https://github.com/cmejet",
+      "contributions": [
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
