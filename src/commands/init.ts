@@ -65,7 +65,7 @@ export default class Init extends Command {
     // Grab their package Json
     const packageJsonLocation = `${pathWhereScriptIsRunning}/package.json`;
     const packageJson = require(packageJsonLocation);
-    const theirScripts = packageJson.scripts;
+    const theirScripts = packageJson.scripts || {};
     const validProjectTypes = Object.keys(scriptsByProject);
     const isValidProject = validProjectTypes.includes(project);
 
