@@ -2,8 +2,9 @@ import * as fse from "fs-extra";
 
 /**
  *
- * @param pathToTempDir the path to the temporary directory
+ * @description creates a directory
+ * @param pathToDir the path to the directory
  */
-export function makeTempDir(pathToTempDir: string) {
-  return fse.ensureDir(pathToTempDir);
+export function makeTempDir(pathToDir: string) {
+  return fse.ensureDir(pathToDir);
 }
