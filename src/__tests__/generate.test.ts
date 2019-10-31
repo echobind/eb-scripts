@@ -1,7 +1,6 @@
 import * as fse from "fs-extra";
 import * as path from "path";
-import { makeTempDir } from "../utils/makeTempDir";
-import { removeTempDir } from "../utils/removeTempDir";
+import { makeTempDir, checkDirExists, removeTempDir } from "../utils";
 
 let root = process.cwd();
 let tempRoot = path.join(root, "tmp");
@@ -31,7 +30,7 @@ describe("The `generate` command", () => {
   });
 
   it("expects to find a temporary directory", async () => {
-    const tempDirectoryExists = await fse.pathExists(tempRoot);
+    const tempDirectoryExists = await checkDirExists(tempRoot);
 
     expect(tempDirectoryExists).toBe(true);
   });
