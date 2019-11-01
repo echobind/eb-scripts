@@ -3,7 +3,6 @@ import * as fse from "fs-extra";
 import { execSync } from "child_process";
 import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 
-const execPromise = util.promisify(exec);
 let root = process.cwd();
 let tempRoot = path.join(`${root}/src`, "/components");
 
@@ -128,6 +127,7 @@ describe("The `generate` command", () => {
     expect(newComponentFolderExists).toBe(true);
     expect(componentIndexExists).toBe(true);
   });
+
   it("throws an error when you pass an invalid flag", () => {
     const generateCommand = () =>
       execSync(`./bin/run generate -t fake-component -n FakeComponent`, {
