@@ -29,24 +29,24 @@ describe("The `generate` command", () => {
     const tempDirectoryExists = await fse.pathExists(tempRoot);
 
     expect(tempDirectoryExists).toBe(true);
-    expect(hasPackageJson).toBe(true);
   });
 
-  it("runs using @oclif/test", async () => {
-    // STOPPED HERE
-    // Need to log all the files in the tempRoot
-    // then log after running test and see if it is working as expected
-    test
-      .loadConfig({
-        root: tempRoot
-      })
-      .stdout()
-      .command(["generate", "-t react-component", "-n HeyJoe"]);
-
-    const newComponentFolderExists = await checkDirExists(
-      tempRoot + "/src/components/HeyJoe"
+  it("generates a react-component using the default template", async () => {
+    const componentName = "TestComponent";
+    const componentFolderPath = `${tempRoot}/${componentName}`;
+    // const newComponentFolderExists = await checkDirExists(componentFolderPath);
+    console.log("hello component folder path", componentFolderPath);
+    const componentIndexExists = checkFileExists(
+      `${componentFolderPath}/index.js`
     );
-    expect(newComponentFolderExists).toBe(true);
+    // I'm very close. stopped here
+
+    execSync(`./bin/run generate -t react-component -n ${componentName}`, {
+      cwd: root
+    });
+
+    // expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
   });
 
   it("throws an error if you don't pass any args", async () => {
