@@ -1,19 +1,10 @@
 import { Command, flags } from "@oclif/command";
 import { execSync } from "child_process";
-import * as path from "path";
-import * as fs from "fs";
-
-// The root of our package, so that we can leverage the scripts in the `package.json`
-const rootDirectory = path.join(__dirname, "..");
-const defaultTemplatePath = `${rootDirectory}/_templates`;
-// Grab the path of the user's project
-const pathWhereScriptIsRunning = process.cwd();
-
-// This is where their templates are (at least we assume so)
-const theirTemplatePath = pathWhereScriptIsRunning + "/_templates";
-
-// Check if they have a template directory
-const hasTemplates = fs.existsSync(theirTemplatePath);
+import {
+  getTemplateLocation,
+  pathWhereScriptIsRunning,
+  rootDirectory
+} from "../utils/getTemplateLocation";
 
 const DEFAULT_COMPONENT_NAME = "MyNewComponent";
 const DEFAULT_TEMPLATE_NAME = "react-component";
@@ -56,23 +47,16 @@ export default class Generate extends Command {
     const { flags } = this.parse(Generate);
     const template = flags.template || DEFAULT_TEMPLATE_NAME;
     const name = flags.name || DEFAULT_COMPONENT_NAME;
-    let templateLocation = "";
+    const templateLocation = getTemplateLocation();
+    const templatePath = `HYGEN_TMPLS=${templateLocation}`;
 
     this.log(
       `Generating new component using template ${template} at ./src/components/${name}.js`
     );
 
-    // If they do have templates, use theirs
-    if (hasTemplates) {
-      templateLocation = `HYGEN_TMPLS=${theirTemplatePath}`;
-    } else {
-      // Otherwise, use ours
-      templateLocation = `HYGEN_TMPLS=${defaultTemplatePath}`;
-    }
-
     // Generate template
     execSync(
-      `${templateLocation} yarn gen ${template} new ${name} --path=${pathWhereScriptIsRunning}`,
+      `${templatePath} yarn gen ${template} new ${name} --path=${pathWhereScriptIsRunning}`,
       { cwd: rootDirectory, stdio: "inherit" }
     );
   }
