@@ -8,8 +8,8 @@
   },
   "bugs": "https://github.com/echobind/eb-scripts/issues",
   "dependencies": {
-    "@oclif/command": "^1",
-    "@oclif/config": "^1",
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2",
     "hygen": "^5.0.1",
     "tslib": "^1"
