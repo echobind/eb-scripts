@@ -85,7 +85,7 @@ export default class Init extends Command {
     const projectScripts: Scripts = scriptsByProject[project as ProjectType];
 
     // Combine their scripts with our scripts
-    const updatedScripts = { ...theirScripts, ...projectScripts };
+    const updatedScripts = { ...projectScripts, ...theirScripts };
     packageJson.scripts = updatedScripts;
 
     this.log(`Writing to package.json scripts...`);
