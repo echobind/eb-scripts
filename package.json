@@ -16,7 +16,6 @@
   },
   "devDependencies": {
     "@oclif/dev-cli": "^1",
-    "@oclif/test": "^1.2.5",
     "@semantic-release/git": "^7.0.17",
     "@semantic-release/npm": "^5.3.2",
     "@types/fs-extra": "^8.0.1",
@@ -35,8 +34,7 @@
     "semantic-release": "^15.13.28",
     "ts-jest": "^24.1.0",
     "ts-node": "^8",
-    "typescript": "^3.6.4",
-    "util": "^0.12.1"
+    "typescript": "^3.6.4"
   },
   "engines": {
     "node": ">=8.0.0"
