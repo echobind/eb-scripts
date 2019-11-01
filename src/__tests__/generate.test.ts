@@ -1,16 +1,15 @@
 import * as path from "path";
 import { exec, execSync } from "child_process";
-import { test } from "@oclif/test";
 import * as util from "util";
 import {
   checkFileExists,
   makeTempDir,
   checkDirExists,
-  removeTempDir
+  removeTempDir,
+  writeFile
 } from "../utils";
 import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 
-const execPromise = util.promisify(exec);
 let root = process.cwd();
 let tempRoot = path.join(`${root}/src`, "/components");
 
@@ -89,6 +88,7 @@ describe("The `generate` command", () => {
     expect(newComponentFolderExists).toBe(true);
     expect(componentIndexExists).toBe(true);
   });
+
   it("throws an error when you pass an invalid flag", () => {
     const generateCommand = () =>
       execSync(`./bin/run generate -t fake-component -n FakeComponent`, {
@@ -96,5 +96,33 @@ describe("The `generate` command", () => {
       });
 
     expect(generateCommand).toThrowErrorMatchingSnapshot();
+  });
+
+  it("uses the users template if they have one", async () => {
+    const pathToNewTemplate = `${root}/_templates/react-component/new`;
+    const newTemplate = `
+    ---
+    to: <%= path %>/src/components/Test.jsx
+    ---
+    <% component = h.changeCase.pascal(name) -%>
+    import React from 'react'
+
+    /** Description of component */
+    export const <%= component %> = () => {
+      return (
+      <h1>Hello <%= component %> component!</h1>
+      )
+    }
+    `;
+    // Make a react-component template
+    await makeTempDir(pathToNewTemplate);
+    // Add template to _templates/react-component/new
+    await writeFile(`${pathToNewTemplate}/component.ejs.t`, newTemplate);
+
+    // TODO
+    // 1. assert that those _templates and component.ejs.t  were created
+    // 4. run command to generate
+    // 5. assert that the Test.jsx file is there
+    // 6. the other files should not be there.
   });
 });
