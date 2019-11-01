@@ -50,7 +50,7 @@ describe("The `generate` command", () => {
     expect(componentIndexExists).toBe(true);
   });
 
-  it("works with a flag of a valid template", async () => {
+  it("works with a flag of a valid template flag", async () => {
     const componentName = "TestComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
