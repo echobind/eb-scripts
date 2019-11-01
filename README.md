@@ -38,6 +38,7 @@ USAGE
 <!-- commands -->
 * [`eb-scripts generate [COMPONENT NAME]`](#eb-scripts-generate-component-name)
 * [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
+* [`eb-scripts init PROJECT`](#eb-scripts-init-project)
 
 ## `eb-scripts generate TEMPLATENAME`
 
@@ -80,6 +81,27 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
+
+## `eb-scripts init PROJECT`
+
+initializes project by installing `eb-scripts` and adding scripts to `package.json`
+
+```
+USAGE
+  $ eb-scripts init PROJECT
+
+ARGUMENTS
+  PROJECT  (react) [default: react] The language or framework of the project
+
+OPTIONS
+  -h, --help             show CLI help
+  -p, --project=project  language/framework of project
+
+EXAMPLE
+  $ npx eb-scripts init -p react
+```
+
+_See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0-development/src/commands/init.ts)_
 <!-- commandsstop -->
 
 # Contributing
