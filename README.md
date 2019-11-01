@@ -1,5 +1,5 @@
 # eb-scripts
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![All Contributors](https://img.shields.io/badge/all_contributors-3-orange.svg?style=flat-square)](#contributors)
 
 A CLI and scripts used at Echobind
 
@@ -116,6 +116,7 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
   <tr>
     <td align="center"><a href="https://jsjoe.io"><img src="https://avatars3.githubusercontent.com/u/3806031?v=4" width="100px;" alt="JavaScript Joe"/><br /><sub><b>JavaScript Joe</b></sub></a><br /><a href="https://github.com/echobind/eb-scripts/commits?author=jsjoeio" title="Code">💻</a> <a href="https://github.com/echobind/eb-scripts/commits?author=jsjoeio" title="Documentation">📖</a> <a href="#example-jsjoeio" title="Examples">💡</a> <a href="#maintenance-jsjoeio" title="Maintenance">🚧</a></td>
     <td align="center"><a href="https://github.com/cmejet"><img src="https://avatars3.githubusercontent.com/u/7119624?v=4" width="100px;" alt="Jenn"/><br /><sub><b>Jenn</b></sub></a><br /><a href="#review-cmejet" title="Reviewed Pull Requests">👀</a></td>
+    <td align="center"><a href="http://alvincrespo.com"><img src="https://avatars0.githubusercontent.com/u/151311?v=4" width="100px;" alt="Alvin Crespo"/><br /><sub><b>Alvin Crespo</b></sub></a><br /><a href="https://github.com/echobind/eb-scripts/commits?author=alvincrespo" title="Code">💻</a> <a href="https://github.com/echobind/eb-scripts/commits?author=alvincrespo" title="Documentation">📖</a> <a href="https://github.com/echobind/eb-scripts/commits?author=alvincrespo" title="Tests">⚠️</a> <a href="#review-alvincrespo" title="Reviewed Pull Requests">👀</a></td>
   </tr>
 </table>
 
