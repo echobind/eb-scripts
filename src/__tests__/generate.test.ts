@@ -32,18 +32,30 @@ describe("The `generate` command", () => {
     expect(tempDirectoryExists).toBe(true);
   });
 
-  it("generates a react-component using the default template", async done => {
+  it("works without flags", async () => {
+    const componentName = DEFAULT_COMPONENT_NAME;
+    const componentFolderPath = `${tempRoot}/${componentName}`;
+
+    execSync(`./bin/run generate`, {
+      cwd: root
+    });
+
+    const newComponentFolderExists = await checkDirExists(componentFolderPath);
+    const componentIndexExists = checkFileExists(
+      `${componentFolderPath}/index.js`
+    );
+
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
+  });
+
+  it("works with a flag of a valid template", async () => {
     const componentName = "TestComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
-    const newComponentFolderExists = await checkDirExists(componentFolderPath);
-    // const componentIndexExists = checkFileExists(
-    // `${componentFolderPath}/index.js`
-    // );
 
     execSync(`./bin/run generate -t react-component -n ${componentName}`, {
       cwd: root
     });
-    await wait(1500);
 
     await expect(newComponentFolderExists).toBe(true);
     // expect(componentIndexExists).toBe(true);
@@ -188,8 +200,7 @@ describe("The `generate` command", () => {
   });
 });
 
-async function wait(ms: number) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
   });
-}
+});
