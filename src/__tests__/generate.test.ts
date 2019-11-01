@@ -7,13 +7,14 @@ import {
   checkDirExists,
   removeTempDir
 } from "../utils";
+import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 
 const execPromise = util.promisify(exec);
 let root = process.cwd();
 let tempRoot = path.join(`${root}/src`, "/components");
 
 describe("The `generate` command", () => {
-  beforeEach(async () => {
+  beforeAll(async () => {
     // create our temporary directory
     try {
       await makeTempDir(tempRoot);
@@ -22,7 +23,7 @@ describe("The `generate` command", () => {
     }
   });
 
-  afterEach(async () => {
+  afterAll(async () => {
     // delete our temporary directory
     try {
       await removeTempDir(tempRoot);
@@ -37,27 +38,37 @@ describe("The `generate` command", () => {
     expect(tempDirectoryExists).toBe(true);
   });
 
-  it("generates a react-component using the default template", async done => {
+  it("works without flags", async () => {
+    const componentName = DEFAULT_COMPONENT_NAME;
+    const componentFolderPath = `${tempRoot}/${componentName}`;
+
+    execSync(`./bin/run generate`, {
+      cwd: root
+    });
+
+    const newComponentFolderExists = await checkDirExists(componentFolderPath);
+    const componentIndexExists = checkFileExists(
+      `${componentFolderPath}/index.js`
+    );
+
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
+  });
+
+  it("works with a flag of a valid template", async () => {
     const componentName = "TestComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
-    const newComponentFolderExists = await checkDirExists(componentFolderPath);
-    // const componentIndexExists = checkFileExists(
-    // `${componentFolderPath}/index.js`
-    // );
 
     execSync(`./bin/run generate -t react-component -n ${componentName}`, {
       cwd: root
     });
-    await wait(1500);
 
-    await expect(newComponentFolderExists).toBe(true);
-    // expect(componentIndexExists).toBe(true);
-    done();
+    const newComponentFolderExists = await checkDirExists(componentFolderPath);
+    const componentIndexExists = checkFileExists(
+      `${componentFolderPath}/index.js`
+    );
+
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
   });
 });
-
-async function wait(ms: number) {
-  return new Promise(resolve => {
-    setTimeout(resolve, ms);
-  });
-}

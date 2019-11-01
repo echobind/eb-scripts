@@ -6,7 +6,7 @@ import {
   rootDirectory
 } from "../utils/getTemplateLocation";
 
-const DEFAULT_COMPONENT_NAME = "MyNewComponent";
+export const DEFAULT_COMPONENT_NAME = "MyNewComponent";
 const DEFAULT_TEMPLATE_NAME = "react-component";
 
 export default class Generate extends Command {
