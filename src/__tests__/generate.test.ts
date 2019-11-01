@@ -89,12 +89,12 @@ describe("The `generate` command", () => {
     expect(newComponentFolderExists).toBe(true);
     expect(componentIndexExists).toBe(true);
   });
+  it("throws an error when you pass an invalid flag", () => {
+    const generateCommand = () =>
+      execSync(`./bin/run generate -t fake-component -n FakeComponent`, {
+        cwd: root
+      });
 
-  // Note this test format is different because we're using @oclif/test
-  test
-    .stdout()
-    .command(["generate", "-t fake-component", "-n FakeComponent"])
-    .it("displays an error when you pass an invalid flag", ctx => {
-      expect(ctx.stdout).toEqual("wrong");
-    });
+    expect(generateCommand).toThrowErrorMatchingSnapshot();
+  });
 });
