@@ -2,26 +2,21 @@ import * as fse from "fs-extra";
 import * as path from "path";
 import { test } from "@oclif/test";
 import { execSync } from "child_process";
-import { makeTempDir, checkDirExists, removeTempDir } from "../utils";
+import {
+  checkFileExists,
+  makeTempDir,
+  checkDirExists,
+  removeTempDir
+} from "../utils";
 
 let root = process.cwd();
-let tempRoot = path.join(root, "tmp");
+let tempRoot = path.join(`${root}/src`, "/components");
 
 describe("The `generate` command", () => {
-  // This will be where we install `eb-scripts`
-  // Update their package.json
-  // Then generate new files
-  // Then assert that they are there...
-
   beforeEach(async () => {
     // create our temporary directory
     try {
       await makeTempDir(tempRoot);
-      await execSync("yarn init -y", { cwd: tempRoot });
-      await makeTempDir(tempRoot + "/src");
-      await makeTempDir(tempRoot + "/src/components");
-      // TODO replace with eb-scirpts init command
-      // install eb-scripts as a dev dependency
     } catch (error) {
       console.error(error);
     }
@@ -36,28 +31,27 @@ describe("The `generate` command", () => {
     }
   });
 
-  it("expects to find a temporary directory with a package.json", async () => {
+  it("expects to find a temporary directory in src/components", async () => {
     const tempDirectoryExists = await checkDirExists(tempRoot);
-    const hasPackageJson = await fse.existsSync(`${tempRoot}/package.json`);
 
     expect(tempDirectoryExists).toBe(true);
-    expect(hasPackageJson).toBe(true);
   });
 
-  it("runs using @oclif/test", async () => {
-    // STOPPED HERE
-    // Need to log all the files in the tempRoot
-    // then log after running test and see if it is working as expected
-    test
-      .loadConfig({
-        root: tempRoot
-      })
-      .stdout()
-      .command(["generate", "-t react-component", "-n HeyJoe"]);
-
-    const newComponentFolderExists = await checkDirExists(
-      tempRoot + "/src/components/HeyJoe"
+  it("generates a react-component using the default template", async () => {
+    const componentName = "TestComponent";
+    const componentFolderPath = `${tempRoot}/${componentName}`;
+    // const newComponentFolderExists = await checkDirExists(componentFolderPath);
+    console.log("hello component folder path", componentFolderPath);
+    const componentIndexExists = checkFileExists(
+      `${componentFolderPath}/index.js`
     );
-    expect(newComponentFolderExists).toBe(true);
+    // I'm very close. stopped here
+
+    execSync(`./bin/run generate -t react-component -n ${componentName}`, {
+      cwd: root
+    });
+
+    // expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
   });
 });
