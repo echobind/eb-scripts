@@ -25,6 +25,18 @@
       "contributions": [
         "review"
       ]
+    },
+    {
+      "login": "alvincrespo",
+      "name": "Alvin Crespo",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/151311?v=4",
+      "profile": "http://alvincrespo.com",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "review"
+      ]
     }
   ],
   "contributorsPerLine": 7,
