@@ -1,5 +1,6 @@
 import * as path from "path";
 import { exec, execSync } from "child_process";
+import { test } from "@oclif/test";
 import * as util from "util";
 import {
   checkFileExists,
@@ -55,7 +56,7 @@ describe("The `generate` command", () => {
     expect(componentIndexExists).toBe(true);
   });
 
-  it("works with a flag of a valid template", async () => {
+  it("works with a flag of a valid template flag", async () => {
     const componentName = "TestComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
@@ -71,4 +72,29 @@ describe("The `generate` command", () => {
     expect(newComponentFolderExists).toBe(true);
     expect(componentIndexExists).toBe(true);
   });
+
+  it("uses the default templates if none in the users directory", async () => {
+    const componentName = "DefaultTemplateComponent";
+    const componentFolderPath = `${tempRoot}/${componentName}`;
+
+    execSync(`./bin/run generate -t react-component -n ${componentName}`, {
+      cwd: root
+    });
+
+    const newComponentFolderExists = await checkDirExists(componentFolderPath);
+    const componentIndexExists = checkFileExists(
+      `${componentFolderPath}/index.js`
+    );
+
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
+  });
+
+  // Note this test format is different because we're using @oclif/test
+  test
+    .stdout()
+    .command(["generate", "-t fake-component", "-n FakeComponent"])
+    .it("displays an error when you pass an invalid flag", ctx => {
+      expect(ctx.stdout).toEqual("wrong");
+    });
 });
