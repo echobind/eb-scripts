@@ -1,7 +1,6 @@
-import * as fse from "fs-extra";
 import * as path from "path";
-import { test } from "@oclif/test";
-import { execSync } from "child_process";
+import { exec, execSync } from "child_process";
+import * as util from "util";
 import {
   checkFileExists,
   makeTempDir,
@@ -9,6 +8,7 @@ import {
   removeTempDir
 } from "../utils";
 
+const execPromise = util.promisify(exec);
 let root = process.cwd();
 let tempRoot = path.join(`${root}/src`, "/components");
 
@@ -37,21 +37,27 @@ describe("The `generate` command", () => {
     expect(tempDirectoryExists).toBe(true);
   });
 
-  it("generates a react-component using the default template", async () => {
+  it("generates a react-component using the default template", async done => {
     const componentName = "TestComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
-    // const newComponentFolderExists = await checkDirExists(componentFolderPath);
-    console.log("hello component folder path", componentFolderPath);
-    const componentIndexExists = checkFileExists(
-      `${componentFolderPath}/index.js`
-    );
-    // I'm very close. stopped here
+    const newComponentFolderExists = await checkDirExists(componentFolderPath);
+    // const componentIndexExists = checkFileExists(
+    // `${componentFolderPath}/index.js`
+    // );
 
     execSync(`./bin/run generate -t react-component -n ${componentName}`, {
       cwd: root
     });
+    await wait(1500);
 
-    // expect(newComponentFolderExists).toBe(true);
-    expect(componentIndexExists).toBe(true);
+    await expect(newComponentFolderExists).toBe(true);
+    // expect(componentIndexExists).toBe(true);
+    done();
   });
 });
+
+async function wait(ms: number) {
+  return new Promise(resolve => {
+    setTimeout(resolve, ms);
+  });
+}
