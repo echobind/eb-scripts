@@ -15,7 +15,9 @@ describe("getTemplateLocation", () => {
 
   it.skip("uses developer custom templates if defined", () => {
     jest.mock("fs");
-    jest.spyOn(process, "cwd").mockImplementation(() => "/custom/path/to");
+    jest.mock("process", () => ({
+      cwd: () => "/custom/path/to"
+    }));
 
     const templateLocation = getTemplateLocation();
 
