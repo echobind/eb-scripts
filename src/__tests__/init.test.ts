@@ -4,44 +4,51 @@ import { execSync } from "child_process";
 import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 
 let root = process.cwd();
-let tempRoot = path.join(`${root}`, "/temp");
 
 describe("The `init` command", () => {
   beforeAll(async () => {
     try {
-      // create our temporary directory
-      await fse.ensureDir(tempRoot);
-      // create a package.json so we have something to work with
-      execSync("yarn init -y", { cwd: tempRoot });
+      // Back up our package.json so we don't break anything during our tests
+      await fse.renameSync(`${root}/package.json`, `${root}/backup.json`);
     } catch (error) {
       console.error(error);
     }
   });
 
+  beforeEach(async () => {
+    // Create a copy package.json so we can use a fresh copy for each test
+    await fse.copyFile(`${root}/backup.json`, `${root}/package.json`);
+  });
+
+  afterEach(async () => {
+    // Remove package.json after each test completes
+    await fse.remove(`${root}/package.json`);
+  });
+
   afterAll(async () => {
     try {
-      // delete our temporary directories
-      await fse.remove(tempRoot);
+      // Restore our package.json from backup
+      await fse.renameSync(`${root}/backup.json`, `${root}/package.json`);
     } catch (err) {
       console.error(err);
     }
   });
 
-  it("expects to find a temporary directory in temp, which contains a package.json", async () => {
-    const tempDirectoryExists = await fse.pathExists(tempRoot);
-    const tempPackageJsonExists = fse.existsSync(`${tempRoot}/package.json`);
+  it("expects to find a backup.json and package.json", async () => {
+    const backupJsonExists = fse.existsSync(`${root}/backup.json`);
+    const packageJsonExists = fse.existsSync(`${root}/package.json`);
 
-    expect(tempDirectoryExists).toBe(true);
-    expect(tempPackageJsonExists).toBe(true);
+    expect(backupJsonExists).toBe(true);
+    expect(packageJsonExists).toBe(true);
   });
 
-  it("works without flags", async () => {
+  it.skip("works without flags", async () => {
     // Run the command
     execSync(`./bin/run init`, {
-      cwd: tempRoot
+      cwd: root
     });
 
-    const packageJson = require(`${tempRoot}/package.json`);
+    const packageJson = require(`${root}/package.json`);
     const scripts = packageJson.scripts;
 
     const devDependencies = packageJson.devDependencies;
@@ -54,7 +61,7 @@ describe("The `init` command", () => {
 
   it.skip("works with a flag of a valid template flag", async () => {
     const componentName = "TestComponent";
-    const componentFolderPath = `${tempRoot}/${componentName}`;
+    const componentFolderPath = `${root}/${componentName}`;
 
     execSync(`./bin/run init -t react-component -n ${componentName}`, {
       cwd: root
@@ -71,7 +78,7 @@ describe("The `init` command", () => {
 
   it.skip("uses the default templates if none in the users directory", async () => {
     const componentName = "DefaultTemplateComponent";
-    const componentFolderPath = `${tempRoot}/${componentName}`;
+    const componentFolderPath = `${root}/${componentName}`;
 
     execSync(`./bin/run generate -t react-component -n ${componentName}`, {
       cwd: root
@@ -121,12 +128,12 @@ describe("The `init` command", () => {
 
     // Using the template we created, we expect to see a new component
     const newGeneratedComponentExists = fse.existsSync(
-      `${tempRoot}/${newComponentName}.jsx`
+      `${root}/${newComponentName}.jsx`
     );
 
     // And no folder for the component
     const newGeneratedComponentFolderExists = await fse.pathExists(
-      `${tempRoot}/${newComponentName}`
+      `${root}/${newComponentName}`
     );
 
     expect(newGeneratedComponentExists).toBe(true);
