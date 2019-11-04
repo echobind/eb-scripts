@@ -1,7 +1,4 @@
-import {
-  DEFAULT_TEMPLATE_PATH,
-  getTemplateLocation
-} from "../utils/getTemplateLocation";
+import { DEFAULT_TEMPLATE_PATH } from "../utils/getTemplateLocation";
 
 describe("getTemplateLocation", () => {
   afterEach(() => {
@@ -15,6 +12,7 @@ describe("getTemplateLocation", () => {
   it("uses default template if dev does not have custom ones", () => {
     jest.dontMock("fs");
 
+    const { getTemplateLocation } = require("../utils/getTemplateLocation");
     const templateLocation = getTemplateLocation();
 
     expect(templateLocation).toEqual(DEFAULT_TEMPLATE_PATH);
@@ -22,9 +20,7 @@ describe("getTemplateLocation", () => {
 
   it("uses developer custom templates if defined", () => {
     jest.mock("fs");
-    jest.mock("process", () => ({
-      cwd: () => "/custom/path/to"
-    }));
+    jest.spyOn(process, "cwd").mockImplementation(() => "/custom/path/to");
 
     // We import this function here because of the way Jest mocks process.cwd
     // If we delete this import and use the "global" import at the top of the file
