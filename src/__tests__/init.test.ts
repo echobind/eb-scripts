@@ -44,7 +44,7 @@ describe("The `init` command", () => {
     }
   });
 
-  it("expects to find a backup.json and package.json", async () => {
+  it("expects to find a backup.json, backupYarn.lock and package.json", async () => {
     const backupJsonExists = fse.existsSync(`${root}/${backupJson}`);
     const backupYarnLockExists = fse.existsSync(`${root}/${backupYarnLock}`);
     const packageJsonExists = fse.existsSync(`${root}/package.json`);
