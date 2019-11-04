@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`The \`init\` command throws an error when you pass an invalid flag 1`] = `
+"Command failed: ./bin/run init -p rust
+ [31m›[39m   Error: Expected --project=rust to be one of: react
+ [31m›[39m   See more help with --help
+"
+`;

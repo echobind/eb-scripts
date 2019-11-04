@@ -34,6 +34,8 @@ const scriptsByProject: ScriptByProject = {
     "g:component": "eb-scripts generate -t react-component -n"
   }
 };
+
+const validProjectTypes: ProjectType[] = ["react"];
 export default class Init extends Command {
   static description =
     "initializes project by installing `eb-scripts` and adding scripts to `package.json`";
@@ -45,7 +47,8 @@ export default class Init extends Command {
     // flag with a value (-p, --project=VALUE)
     project: flags.string({
       char: "p",
-      description: "language/framework of project"
+      description: "language/framework of project",
+      options: validProjectTypes
     })
   };
 
