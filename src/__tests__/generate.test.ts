@@ -40,8 +40,8 @@ describe("The `generate` command", () => {
       cwd: root
     });
 
-    const newComponentFolderExists = await checkDirExists(componentFolderPath);
-    const componentIndexExists = checkFileExists(
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
       `${componentFolderPath}/index.js`
     );
 
