@@ -4,7 +4,7 @@ import {
   getTemplateLocation,
   pathWhereScriptIsRunning,
   rootDirectory
-} from "../utils/getTemplateLocation";
+} from "../utils/";
 
 export const DEFAULT_COMPONENT_NAME = "MyNewComponent";
 const DEFAULT_TEMPLATE_NAME = "react-component";
