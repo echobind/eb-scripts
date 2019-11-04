@@ -18,10 +18,17 @@
     "@oclif/dev-cli": "^1",
     "@semantic-release/git": "^7.0.17",
     "@semantic-release/npm": "^5.3.2",
-    "@types/node": "^12.12.3",
     "@types/jest": "^24.0.21",
+    "@types/node": "^12.12.3",
+    "eslint": "^6.6.0",
+    "eslint-config-prettier": "^6.5.0",
+    "eslint-plugin-echobind": "^0.1.0",
+    "eslint-plugin-prettier": "^3.1.1",
     "globby": "^10",
+    "husky": "^3.0.9",
     "jest": "^24.9.0",
+    "prettier": "1.18.2",
+    "pretty-quick": "^2.0.0",
     "semantic-release": "^15.13.28",
     "ts-jest": "^24.1.0",
     "ts-node": "^8",
@@ -76,5 +83,10 @@
   "jest": {
     "preset": "ts-jest",
     "testEnvironment": "node"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
   }
 }
