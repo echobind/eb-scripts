@@ -3,15 +3,15 @@ import {
   getTemplateLocation
 } from "../utils/getTemplateLocation";
 
-afterEach(() => {
-  jest.resetModules();
-});
-
-afterAll(() => {
-  jest.restoreAllMocks();
-});
-
 describe("my thing", () => {
+  afterEach(() => {
+    jest.resetModules();
+  });
+
+  afterAll(() => {
+    jest.restoreAllMocks();
+  });
+
   it("uses default template if dev does not have custom ones", () => {
     jest.dontMock("fs");
 
