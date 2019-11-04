@@ -75,47 +75,30 @@ describe("The `init` command", () => {
     expect(hasGComponentScript).toBe(true);
   });
 
-  it.skip("works with a flag of a valid template flag", async () => {
-    const componentName = "TestComponent";
-    const componentFolderPath = `${root}/${componentName}`;
-
-    execSync(`./bin/run init -t react-component -n ${componentName}`, {
+  it("works with a flag of a valid template flag (react)", async () => {
+    execSync(`./bin/run init -p react`, {
       cwd: root
     });
 
-    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
-    const componentIndexExists = fse.existsSync(
-      `${componentFolderPath}/index.js`
-    );
+    const packageJson = require(`${root}/package.json`);
+    const scripts = packageJson.scripts;
 
-    expect(newComponentFolderExists).toBe(true);
-    expect(componentIndexExists).toBe(true);
+    const devDependencies = packageJson.devDependencies;
+
+    const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
+    const hasGComponentScript = Object.keys(scripts).includes("g:component");
+
+    expect(hasEbScripts).toBe(true);
+    expect(hasGComponentScript).toBe(true);
   });
 
-  it.skip("uses the default templates if none in the users directory", async () => {
-    const componentName = "DefaultTemplateComponent";
-    const componentFolderPath = `${root}/${componentName}`;
-
-    execSync(`./bin/run generate -t react-component -n ${componentName}`, {
-      cwd: root
-    });
-
-    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
-    const componentIndexExists = fse.existsSync(
-      `${componentFolderPath}/index.js`
-    );
-
-    expect(newComponentFolderExists).toBe(true);
-    expect(componentIndexExists).toBe(true);
-  });
-
-  it.skip("throws an error when you pass an invalid flag", () => {
-    const generateCommand = () =>
-      execSync(`./bin/run generate -t fake-component -n FakeComponent`, {
+  it("throws an error when you pass an invalid flag", () => {
+    const initCommand = () =>
+      execSync(`./bin/run init -p rust`, {
         cwd: root
       });
 
-    expect(generateCommand).toThrowErrorMatchingSnapshot();
+    expect(initCommand).toThrowErrorMatchingSnapshot();
   });
 
   it.skip("uses the users template if they have one", async () => {
