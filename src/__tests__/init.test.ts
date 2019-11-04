@@ -67,10 +67,12 @@ describe("The `init` command", () => {
 
     // Check for eb-scripts in the devDependencies
     const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
+    // The default project for the init project is react
+    // which includes a g:component script so we check for that
+    const hasGComponentScript = Object.keys(scripts).includes("g:component");
 
     expect(hasEbScripts).toBe(true);
-
-    // Check for the g:component script...
+    expect(hasGComponentScript).toBe(true);
   });
 
   it.skip("works with a flag of a valid template flag", async () => {
