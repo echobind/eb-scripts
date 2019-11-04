@@ -101,22 +101,11 @@ describe("The `generate` command", () => {
   it("uses the users template if they have one", async () => {
     const pathToNewTemplate = `${root}/_templates/react-component/new`;
     const newComponentName = "Test";
-    const newTemplate = `---\nto: <%= path %>/src/components/<%= h.changeCase.pascal(name) %>.jsx
-    ---
-    <% component = h.changeCase.pascal(name) -%>
-    import React from 'react'
-
-    /** Description of component */
-    export const <%= component %> = () => {
-      return (
-      <h1>Hello <%= component %> component!</h1>
-      )
-    }`;
     // Make a react-component template
     await makeTempDir(pathToNewTemplate);
     // Add template to _templates/react-component/new
     await copyFile(
-      `${root}/src/utils/componentTestTemplate.ejs.t`,
+      `${root}/src/__tests__/helpers/componentTestTemplate.ejs.t`,
       `${pathToNewTemplate}/component.ejs.t`
     );
 
