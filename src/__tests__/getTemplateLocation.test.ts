@@ -22,7 +22,9 @@ describe("getTemplateLocation", () => {
 
   it("uses developer custom templates if defined", () => {
     jest.mock("fs");
-    jest.spyOn(process, "cwd").mockImplementation(() => "/custom/path/to");
+    jest.mock("process", () => ({
+      cwd: () => "/custom/path/to"
+    }));
 
     // We import this function here because of the way Jest mocks process.cwd
     // If we delete this import and use the "global" import at the top of the file
