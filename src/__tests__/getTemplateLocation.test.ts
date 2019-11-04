@@ -3,7 +3,7 @@ import {
   getTemplateLocation
 } from "../utils/getTemplateLocation";
 
-describe("my thing", () => {
+describe("getTemplateLocation", () => {
   afterEach(() => {
     jest.resetModules();
   });
