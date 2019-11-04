@@ -1,6 +1,5 @@
 import * as path from "path";
-import { exec, execSync } from "child_process";
-import * as util from "util";
+import { execSync } from "child_process";
 import {
   checkFileExists,
   makeTempDir,
@@ -24,9 +23,10 @@ describe("The `generate` command", () => {
   });
 
   afterAll(async () => {
-    // delete our temporary directory
+    // delete our temporary directories
     try {
-      await removeTempDir(tempRoot);
+      // await removeTempDir(tempRoot);
+      // await removeTempDir(`${root}/_templates`);
     } catch (err) {
       console.error(err);
     }
@@ -100,9 +100,10 @@ describe("The `generate` command", () => {
 
   it("uses the users template if they have one", async () => {
     const pathToNewTemplate = `${root}/_templates/react-component/new`;
+    const newComponentName = "Test";
     const newTemplate = `
     ---
-    to: <%= path %>/src/components/Test.jsx
+    to: <%= path %>/src/components/<%= h.changeCase.pascal(name) %>.jsx
     ---
     <% component = h.changeCase.pascal(name) -%>
     import React from 'react'
@@ -119,10 +120,30 @@ describe("The `generate` command", () => {
     // Add template to _templates/react-component/new
     await writeFile(`${pathToNewTemplate}/component.ejs.t`, newTemplate);
 
-    // TODO
-    // 1. assert that those _templates and component.ejs.t  were created
-    // 4. run command to generate
-    // 5. assert that the Test.jsx file is there
-    // 6. the other files should not be there.
+    const newTemplateFolderExists = await checkDirExists(pathToNewTemplate);
+    const newTemplateFileExists = checkFileExists(
+      `${pathToNewTemplate}/component.ejs.t`
+    );
+
+    // Check that it made our template and new file
+    expect(newTemplateFolderExists).toBe(true);
+    expect(newTemplateFileExists).toBe(true);
+
+    execSync(`./bin/run generate -t react-component -n ${newComponentName}`, {
+      cwd: root
+    });
+
+    // Using the template we created, we expect to see a new component
+    const newGeneratedComponentExists = checkFileExists(
+      `${tempRoot}/${newComponentName}.jsx`
+    );
+
+    // And no folder for the component
+    const newGeneratedComponentFolderExists = await checkDirExists(
+      `${tempRoot}/${newComponentName}`
+    );
+
+    expect(newGeneratedComponentExists).toBe(true);
+    expect(newGeneratedComponentFolderExists).toBe(false);
   });
 });
