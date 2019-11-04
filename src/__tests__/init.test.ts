@@ -6,10 +6,15 @@ import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 let root = process.cwd();
 
 describe("The `init` command", () => {
+  const backupJson = "backup.json";
+  const backupYarnLock = "backupYarn.lock";
+
   beforeAll(async () => {
     try {
       // Back up our package.json so we don't break anything during our tests
-      await fse.renameSync(`${root}/package.json`, `${root}/backup.json`);
+      await fse.renameSync(`${root}/package.json`, `${root}/${backupJson}`);
+      // Also back up our yarn.lock
+      await fse.renameSync(`${root}/yarn.lock`, `${root}/${backupYarnLock}`);
     } catch (error) {
       console.error(error);
     }
@@ -17,32 +22,39 @@ describe("The `init` command", () => {
 
   beforeEach(async () => {
     // Create a copy package.json so we can use a fresh copy for each test
-    await fse.copyFile(`${root}/backup.json`, `${root}/package.json`);
+    await fse.copyFile(`${root}/${backupJson}`, `${root}/package.json`);
+    // Create a copy of the yarn.lock
+    await fse.copyFile(`${root}/${backupYarnLock}`, `${root}/yarn.lock`);
   });
 
   afterEach(async () => {
-    // Remove package.json after each test completes
+    // Remove package.json and yarn.lock after each test completes
     await fse.remove(`${root}/package.json`);
+    await fse.remove(`${root}/yarn.lock`);
   });
 
   afterAll(async () => {
     try {
       // Restore our package.json from backup
-      await fse.renameSync(`${root}/backup.json`, `${root}/package.json`);
+      await fse.renameSync(`${root}/${backupJson}`, `${root}/package.json`);
+      // Restore our yarn lock
+      await fse.renameSync(`${root}/${backupYarnLock}`, `${root}/yarn.lock`);
     } catch (err) {
       console.error(err);
     }
   });
 
   it("expects to find a backup.json and package.json", async () => {
-    const backupJsonExists = fse.existsSync(`${root}/backup.json`);
+    const backupJsonExists = fse.existsSync(`${root}/${backupJson}`);
+    const backupYarnLockExists = fse.existsSync(`${root}/${backupYarnLock}`);
     const packageJsonExists = fse.existsSync(`${root}/package.json`);
 
     expect(backupJsonExists).toBe(true);
+    expect(backupYarnLockExists).toBe(true);
     expect(packageJsonExists).toBe(true);
   });
 
-  it.skip("works without flags", async () => {
+  it("works without flags", async () => {
     // Run the command
     execSync(`./bin/run init`, {
       cwd: root
@@ -57,6 +69,8 @@ describe("The `init` command", () => {
     const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
 
     expect(hasEbScripts).toBe(true);
+
+    // Check for the g:component script...
   });
 
   it.skip("works with a flag of a valid template flag", async () => {
