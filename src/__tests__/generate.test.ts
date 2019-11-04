@@ -26,7 +26,7 @@ describe("The `generate` command", () => {
     // delete our temporary directories
     try {
       await removeTempDir(tempRoot);
-      // await removeTempDir(`${root}/_templates`);
+      await removeTempDir(`${root}/_templates`);
     } catch (err) {
       console.error(err);
     }
@@ -116,7 +116,7 @@ describe("The `generate` command", () => {
     await makeTempDir(pathToNewTemplate);
     // Add template to _templates/react-component/new
     await copyFile(
-      "../utils/componentTestTemplate.ejs.t",
+      `${root}/src/utils/componentTestTemplate.ejs.t`,
       `${pathToNewTemplate}/component.ejs.t`
     );
 
