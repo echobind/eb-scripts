@@ -15,3 +15,10 @@ exports[`The \`generate\` command throws an error when you pass an invalid flag 
  ›   See more help with --help
 "
 `;
+
+exports[`The \`generate\` command throws an error when you pass an invalid flag 1`] = `
+"Command failed: ./bin/run generate -t fake-component -n FakeComponent
+ [31m›[39m   Error: Expected --template=fake-component to be one of: react-component
+ [31m›[39m   See more help with --help
+"
+`;
