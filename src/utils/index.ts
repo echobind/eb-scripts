@@ -1,5 +1,6 @@
-export { copyFile } from "./copyFile";
-export { removeTempDir } from "./removeTempDir";
-export { checkDirExists } from "./checkDirExists";
-export { makeTempDir } from "./makeTempDir";
-export { checkFileExists } from "./checkFileExists";
+export {
+  getTemplateLocation,
+  rootDirectory,
+  pathWhereScriptIsRunning,
+  DEFAULT_TEMPLATE_PATH
+} from "./getTemplateLocation";

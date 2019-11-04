@@ -1,12 +1,6 @@
 import * as path from "path";
+import * as fse from "fs-extra";
 import { execSync } from "child_process";
-import {
-  checkFileExists,
-  makeTempDir,
-  checkDirExists,
-  removeTempDir,
-  copyFile
-} from "../utils";
 import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 
 let root = process.cwd();
@@ -16,7 +10,7 @@ describe("The `generate` command", () => {
   beforeAll(async () => {
     // create our temporary directory
     try {
-      await makeTempDir(tempRoot);
+      await fse.ensureDir(tempRoot);
     } catch (error) {
       console.error(error);
     }
@@ -25,15 +19,15 @@ describe("The `generate` command", () => {
   afterAll(async () => {
     // delete our temporary directories
     try {
-      await removeTempDir(tempRoot);
-      await removeTempDir(`${root}/_templates`);
+      await fse.remove(tempRoot);
+      await fse.remove(`${root}/_templates`);
     } catch (err) {
       console.error(err);
     }
   });
 
   it("expects to find a temporary directory in src/components", async () => {
-    const tempDirectoryExists = await checkDirExists(tempRoot);
+    const tempDirectoryExists = await fse.pathExists(tempRoot);
 
     expect(tempDirectoryExists).toBe(true);
   });
@@ -46,8 +40,8 @@ describe("The `generate` command", () => {
       cwd: root
     });
 
-    const newComponentFolderExists = await checkDirExists(componentFolderPath);
-    const componentIndexExists = checkFileExists(
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
       `${componentFolderPath}/index.js`
     );
 
@@ -63,8 +57,8 @@ describe("The `generate` command", () => {
       cwd: root
     });
 
-    const newComponentFolderExists = await checkDirExists(componentFolderPath);
-    const componentIndexExists = checkFileExists(
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
       `${componentFolderPath}/index.js`
     );
 
@@ -80,8 +74,8 @@ describe("The `generate` command", () => {
       cwd: root
     });
 
-    const newComponentFolderExists = await checkDirExists(componentFolderPath);
-    const componentIndexExists = checkFileExists(
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
       `${componentFolderPath}/index.js`
     );
 
@@ -102,15 +96,15 @@ describe("The `generate` command", () => {
     const pathToNewTemplate = `${root}/_templates/react-component/new`;
     const newComponentName = "Test";
     // Make a react-component template
-    await makeTempDir(pathToNewTemplate);
+    await fse.ensureDir(pathToNewTemplate);
     // Add template to _templates/react-component/new
-    await copyFile(
+    await fse.copyFileSync(
       `${root}/src/__tests__/helpers/componentTestTemplate.ejs.t`,
       `${pathToNewTemplate}/component.ejs.t`
     );
 
-    const newTemplateFolderExists = await checkDirExists(pathToNewTemplate);
-    const newTemplateFileExists = checkFileExists(
+    const newTemplateFolderExists = await fse.pathExists(pathToNewTemplate);
+    const newTemplateFileExists = fse.existsSync(
       `${pathToNewTemplate}/component.ejs.t`
     );
 
@@ -123,12 +117,12 @@ describe("The `generate` command", () => {
     });
 
     // Using the template we created, we expect to see a new component
-    const newGeneratedComponentExists = checkFileExists(
+    const newGeneratedComponentExists = fse.existsSync(
       `${tempRoot}/${newComponentName}.jsx`
     );
 
     // And no folder for the component
-    const newGeneratedComponentFolderExists = await checkDirExists(
+    const newGeneratedComponentFolderExists = await fse.pathExists(
       `${tempRoot}/${newComponentName}`
     );
 
