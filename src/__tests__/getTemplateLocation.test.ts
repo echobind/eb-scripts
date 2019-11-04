@@ -1,10 +1,17 @@
-import { DEFAULT_TEMPLATE_PATH, getTemplateLocation } from "../utils";
+import {
+  DEFAULT_TEMPLATE_PATH,
+  getTemplateLocation
+} from "../utils/getTemplateLocation";
 
 afterEach(() => {
   jest.resetModules();
 });
 
-describe("getTemplateLocation", () => {
+afterAll(() => {
+  jest.restoreAllMocks();
+});
+
+describe("my thing", () => {
   it("uses default template if dev does not have custom ones", () => {
     jest.dontMock("fs");
 
@@ -13,11 +20,11 @@ describe("getTemplateLocation", () => {
     expect(templateLocation).toEqual(DEFAULT_TEMPLATE_PATH);
   });
 
-  it.skip("uses developer custom templates if defined", () => {
+  it("uses developer custom templates if defined", () => {
     jest.mock("fs");
-    jest.mock("process", () => ({
-      cwd: () => "/custom/path/to"
-    }));
+    jest.spyOn(process, "cwd").mockImplementation(() => "/custom/path/to");
+
+    const { getTemplateLocation } = require("../utils/getTemplateLocation");
 
     const templateLocation = getTemplateLocation();
 
