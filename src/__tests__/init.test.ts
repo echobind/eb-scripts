@@ -100,42 +100,4 @@ describe("The `init` command", () => {
 
     expect(initCommand).toThrowErrorMatchingSnapshot();
   });
-
-  it.skip("uses the users template if they have one", async () => {
-    const pathToNewTemplate = `${root}/_templates/react-component/new`;
-    const newComponentName = "Test";
-    // Make a react-component template
-    await fse.ensureDir(pathToNewTemplate);
-    // Add template to _templates/react-component/new
-    await fse.copyFileSync(
-      `${root}/src/__tests__/helpers/componentTestTemplate.ejs.t`,
-      `${pathToNewTemplate}/component.ejs.t`
-    );
-
-    const newTemplateFolderExists = await fse.pathExists(pathToNewTemplate);
-    const newTemplateFileExists = fse.existsSync(
-      `${pathToNewTemplate}/component.ejs.t`
-    );
-
-    // Check that it made our template and new file
-    expect(newTemplateFolderExists).toBe(true);
-    expect(newTemplateFileExists).toBe(true);
-
-    execSync(`./bin/run generate -t react-component -n ${newComponentName}`, {
-      cwd: root
-    });
-
-    // Using the template we created, we expect to see a new component
-    const newGeneratedComponentExists = fse.existsSync(
-      `${root}/${newComponentName}.jsx`
-    );
-
-    // And no folder for the component
-    const newGeneratedComponentFolderExists = await fse.pathExists(
-      `${root}/${newComponentName}`
-    );
-
-    expect(newGeneratedComponentExists).toBe(true);
-    expect(newGeneratedComponentFolderExists).toBe(false);
-  });
 });
