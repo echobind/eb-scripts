@@ -5,7 +5,7 @@ import {
   makeTempDir,
   checkDirExists,
   removeTempDir,
-  writeFile
+  copyFile
 } from "../utils";
 import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 
@@ -25,7 +25,7 @@ describe("The `generate` command", () => {
   afterAll(async () => {
     // delete our temporary directories
     try {
-      // await removeTempDir(tempRoot);
+      await removeTempDir(tempRoot);
       // await removeTempDir(`${root}/_templates`);
     } catch (err) {
       console.error(err);
@@ -101,9 +101,7 @@ describe("The `generate` command", () => {
   it("uses the users template if they have one", async () => {
     const pathToNewTemplate = `${root}/_templates/react-component/new`;
     const newComponentName = "Test";
-    const newTemplate = `
-    ---
-    to: <%= path %>/src/components/<%= h.changeCase.pascal(name) %>.jsx
+    const newTemplate = `---\nto: <%= path %>/src/components/<%= h.changeCase.pascal(name) %>.jsx
     ---
     <% component = h.changeCase.pascal(name) -%>
     import React from 'react'
@@ -113,12 +111,14 @@ describe("The `generate` command", () => {
       return (
       <h1>Hello <%= component %> component!</h1>
       )
-    }
-    `;
+    }`;
     // Make a react-component template
     await makeTempDir(pathToNewTemplate);
     // Add template to _templates/react-component/new
-    await writeFile(`${pathToNewTemplate}/component.ejs.t`, newTemplate);
+    await copyFile(
+      "../utils/componentTestTemplate.ejs.t",
+      `${pathToNewTemplate}/component.ejs.t`
+    );
 
     const newTemplateFolderExists = await checkDirExists(pathToNewTemplate);
     const newTemplateFileExists = checkFileExists(
