@@ -35,7 +35,10 @@ const scriptsByProject: ScriptByProject = {
   }
 };
 
-const validProjectTypes: ProjectType[] = ["react"];
+// Use the keys from scriptsByProject as valid projec types
+const validProjectTypes: ProjectType[] = Object.keys(
+  scriptsByProject
+) as ProjectType[];
 export default class Init extends Command {
   static description =
     "initializes project by installing `eb-scripts` and adding scripts to `package.json`";
@@ -44,9 +47,8 @@ export default class Init extends Command {
 
   static flags = {
     help: flags.help({ char: "h" }),
-    // flag with a value (-p, --project=VALUE)
+    // flag with a value (--project=VALUE)
     project: flags.string({
-      char: "p",
       description: "language/framework of project",
       options: validProjectTypes
     })
@@ -58,13 +60,13 @@ export default class Init extends Command {
       required: true,
       description: "The language or framework of the project",
       default: "react",
-      options: ["react"] as ProjectType[]
+      options: validProjectTypes
     }
   ];
 
   async run() {
-    const { flags } = this.parse(Init);
-    const project = flags.project || DEFAULT_PROJECT_NAME;
+    const { flags, args } = this.parse(Init);
+    const project = args.project || flags.project || DEFAULT_PROJECT_NAME;
     // Grab their package Json
     const packageJsonLocation = `${pathWhereScriptIsRunning}/package.json`;
     const packageJson = require(packageJsonLocation);
