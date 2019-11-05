@@ -54,29 +54,18 @@ describe("The `init` command", () => {
     expect(packageJsonExists).toBe(true);
   });
 
-  it("works without flags", async () => {
-    // Run the command
-    execSync(`./bin/run init`, {
-      cwd: root
-    });
+  it("throws an error if you don't pass an argument for the project type", async () => {
+    // We do this because the argument of project is required
+    const initCommand = () =>
+      execSync(`./bin/run init`, {
+        cwd: root
+      });
 
-    const packageJson = require(`${root}/package.json`);
-    const scripts = packageJson.scripts;
-
-    const devDependencies = packageJson.devDependencies;
-
-    // Check for eb-scripts in the devDependencies
-    const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
-    // The default project for the init project is react
-    // which includes a g:component script so we check for that
-    const hasGComponentScript = Object.keys(scripts).includes("g:component");
-
-    expect(hasEbScripts).toBe(true);
-    expect(hasGComponentScript).toBe(true);
+    expect(initCommand).toThrowErrorMatchingSnapshot();
   });
 
-  it("works with a flag of a valid template flag (react)", async () => {
-    execSync(`./bin/run init -p react`, {
+  it("works with an argument of a valid project (react)", async () => {
+    execSync(`./bin/run init react`, {
       cwd: root
     });
 
@@ -94,7 +83,7 @@ describe("The `init` command", () => {
 
   it("throws an error when you pass an invalid flag", () => {
     const initCommand = () =>
-      execSync(`./bin/run init -p rust`, {
+      execSync(`./bin/run init rust`, {
         cwd: root
       });
 

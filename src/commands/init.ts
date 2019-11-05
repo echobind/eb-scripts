@@ -46,12 +46,7 @@ export default class Init extends Command {
   static examples = [`$ npx eb-scripts init react`];
 
   static flags = {
-    help: flags.help({ char: "h" }),
-    // flag with a value (--project=VALUE)
-    project: flags.string({
-      description: "language/framework of project",
-      options: validProjectTypes
-    })
+    help: flags.help({ char: "h" })
   };
 
   static args = [
@@ -65,8 +60,8 @@ export default class Init extends Command {
   ];
 
   async run() {
-    const { flags, args } = this.parse(Init);
-    const project = args.project || flags.project || DEFAULT_PROJECT_NAME;
+    const { args } = this.parse(Init);
+    const project = args.project || DEFAULT_PROJECT_NAME;
     // Grab their package Json
     const packageJsonLocation = `${pathWhereScriptIsRunning}/package.json`;
     const packageJson = require(packageJsonLocation);
