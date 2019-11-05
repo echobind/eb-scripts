@@ -41,7 +41,7 @@ describe("The `generate` command", () => {
     expect(generateCommand).toThrowErrorMatchingSnapshot();
   });
 
-  it.skip("works with a flag of a valid template flag", async () => {
+  it("works with a arg of a valid template and uses the default src/components path flag", async () => {
     const componentName = "TestComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
