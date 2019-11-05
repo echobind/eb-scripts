@@ -8,6 +8,7 @@ import {
 
 export const DEFAULT_COMPONENT_NAME = "MyNewComponent";
 const DEFAULT_TEMPLATE_NAME = "react-component";
+const DEFAULT_PATH = "src/components";
 
 /**
  * @description valid template type
@@ -22,7 +23,7 @@ export default class Generate extends Command {
   static description = "generates new files";
 
   static examples = [
-    `$ eb-scripts generate -t react-component -n MyNewComponent
+    `$ eb-scripts generate react-component -n MyNewComponent -p src/components
     Loaded templates: _templates
     added: src/MyNewComponent.js
 `
@@ -38,31 +39,37 @@ export default class Generate extends Command {
       options: validTemplateTypes
     }),
     // flag with a value (-n, --name=VALUE)
-    name: flags.string({ char: "n", description: "name to print" })
+    name: flags.string({
+      char: "n",
+      description: "name to print",
+      default: DEFAULT_COMPONENT_NAME
+    }),
+    // flag with a value (-p, --path=VALUE)
+    path: flags.string({
+      char: "p",
+      default: DEFAULT_PATH,
+      description: "path to where you want the files to go"
+    })
   };
 
   static args = [
     {
-      name: "template name",
+      name: "templateName",
       description: "the template you want to use",
       required: true,
       default: DEFAULT_TEMPLATE_NAME,
       options: ["react-component"] as TemplateType[]
-    },
-    {
-      name: "component name",
-      description: "the name of the component or file you want to generate",
-      default: DEFAULT_COMPONENT_NAME
     }
   ];
 
   async run() {
-    const { flags } = this.parse(Generate);
+    const { flags, args } = this.parse(Generate);
     // Assert flags.template as a TemplateType, so TS knows it should be a TemplateType
-    const template = (flags.template as TemplateType) || DEFAULT_TEMPLATE_NAME;
-    // Then we manually check if it is
-    const isValidTemplate = validTemplateTypes.includes(template);
-    const name = flags.name || DEFAULT_COMPONENT_NAME;
+    const template =
+      (args.templateName as TemplateType) || DEFAULT_TEMPLATE_NAME;
+    const name = flags.name;
+    // The path where the files will go when generated
+    const path = flags.path;
     const templateLocation = getTemplateLocation();
     const templatePath = `HYGEN_TMPLS=${templateLocation}`;
 
@@ -72,7 +79,7 @@ export default class Generate extends Command {
 
     // Generate template
     execSync(
-      `${templatePath} yarn gen ${template} new ${name} --path=${pathWhereScriptIsRunning}`,
+      `${templatePath} yarn gen ${template} new ${name} --root=${pathWhereScriptIsRunning} --path=${path}`,
       { cwd: rootDirectory, stdio: "inherit" }
     );
   }
