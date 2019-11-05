@@ -57,7 +57,6 @@ export default class Generate extends Command {
       name: "templateName",
       description: "the template you want to use",
       required: true,
-      default: DEFAULT_TEMPLATE_NAME,
       options: ["react-component"] as TemplateType[]
     }
   ];
