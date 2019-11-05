@@ -88,7 +88,7 @@ describe("The `generate` command", () => {
     expect(componentIndexExists).toBe(true);
   });
 
-  it.skip("uses the default templates if none in the users directory", async () => {
+  it("uses the default templates if none in the users directory and the default src/components path flag", async () => {
     const componentName = "DefaultTemplateComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
@@ -105,7 +105,7 @@ describe("The `generate` command", () => {
     expect(componentIndexExists).toBe(true);
   });
 
-  it.skip("throws an error when you pass an invalid flag", () => {
+  it("throws an error when you pass an invalid flag", () => {
     const generateCommand = () =>
       execSync(`./bin/run generate fake-component -n FakeComponent`, {
         cwd: root
