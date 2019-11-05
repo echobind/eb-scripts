@@ -120,7 +120,7 @@ describe("The `generate` command", () => {
     expect(generateCommand).toThrowErrorMatchingSnapshot();
   });
 
-  it.skip("uses the users template if they have one", async () => {
+  it("uses the users template if they have one", async () => {
     const pathToNewTemplate = `${root}/_templates/react-component/new`;
     const newComponentName = "Test";
     // Make a react-component template
