@@ -31,7 +31,7 @@ type ScriptByProject = {
 const pathWhereScriptIsRunning = process.cwd();
 const scriptsByProject: ScriptByProject = {
   react: {
-    "g:component": "eb-scripts generate -t react-component -n"
+    "g:component": "eb-scripts generate react-component -p src/components -n"
   }
 };
 
@@ -89,7 +89,6 @@ export default class Init extends Command {
     packageJson.scripts = updatedScripts;
 
     this.log(`Writing to package.json scripts...`);
-    // TODO
     fs.writeFileSync(packageJsonLocation, JSON.stringify(packageJson, null, 2));
 
     // *******************
@@ -105,10 +104,8 @@ export default class Init extends Command {
 
     // Check if they're using yarn
     if (hasYarnLock) {
-      // TODO
       execSync("yarn add --dev eb-scripts", { cwd: pathWhereScriptIsRunning });
     } else {
-      // TODO
       execSync("npm add --save-dev eb-scripts", {
         cwd: pathWhereScriptIsRunning
       });
