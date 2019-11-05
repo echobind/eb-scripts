@@ -1,5 +1,5 @@
 ---
-to: <%= root %>/<%= path %> /<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.jsx
+to: <%= root %>/<%= path %>/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.jsx
 ---
 <% component = h.changeCase.pascal(name) -%>
 import React from 'react'
