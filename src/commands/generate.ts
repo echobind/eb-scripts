@@ -73,7 +73,7 @@ export default class Generate extends Command {
     const templatePath = `HYGEN_TMPLS=${templateLocation}`;
 
     this.log(
-      `Generating new component using template ${template} at ./src/components/${name}.js`
+      `Generating new component using template ${template} at ${pathWhereScriptIsRunning}/${path}`
     );
 
     // Generate template
