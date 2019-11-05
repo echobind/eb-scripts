@@ -43,7 +43,7 @@ export default class Init extends Command {
   static description =
     "initializes project by installing `eb-scripts` and adding scripts to `package.json`";
 
-  static examples = [`$ npx eb-scripts init -p react`];
+  static examples = [`$ npx eb-scripts init react`];
 
   static flags = {
     help: flags.help({ char: "h" }),

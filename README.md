@@ -9,17 +9,15 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-
-- [eb-scripts](#eb-scripts)
-- [Usage](#usage)
-- [Commands](#commands)
-- [Contributing](#contributing)
-  <!-- tocstop -->
+* [eb-scripts](#eb-scripts)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Contributing](#contributing)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
@@ -31,16 +29,14 @@ USAGE
   $ eb-scripts COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`eb-scripts generate TEMPLATE NAME [COMPONENT NAME]`](#eb-scripts-generate-template-name-component-name)
-- [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
-- [`eb-scripts init PROJECT`](#eb-scripts-init-project)
+* [`eb-scripts generate TEMPLATE NAME [COMPONENT NAME]`](#eb-scripts-generate-template-name-component-name)
+* [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
+* [`eb-scripts init PROJECT`](#eb-scripts-init-project)
 
 ## `eb-scripts generate TEMPLATE NAME [COMPONENT NAME]`
 
@@ -55,9 +51,9 @@ ARGUMENTS
   COMPONENT NAME  [default: MyNewComponent] the name of the component or file you want to generate
 
 OPTIONS
-  -h, --help               show CLI help
-  -n, --name=name          name to print
-  -t, --template=template  template to use
+  -h, --help                      show CLI help
+  -n, --name=name                 name to print
+  -t, --template=react-component  template to use
 
 EXAMPLE
   $ eb-scripts generate -t react-component -n MyNewComponent
@@ -96,15 +92,14 @@ ARGUMENTS
   PROJECT  (react) [default: react] The language or framework of the project
 
 OPTIONS
-  -h, --help             show CLI help
-  -p, --project=project  language/framework of project
+  -h, --help       show CLI help
+  --project=react  language/framework of project
 
 EXAMPLE
-  $ npx eb-scripts init -p react
+  $ npx eb-scripts init react
 ```
 
 _See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0-development/src/commands/init.ts)_
-
 <!-- commandsstop -->
 
 # Contributing
