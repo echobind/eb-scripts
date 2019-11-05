@@ -93,7 +93,6 @@ export default class Init extends Command {
     packageJson.scripts = updatedScripts;
 
     this.log(`Writing to package.json scripts...`);
-    // TODO
     fs.writeFileSync(packageJsonLocation, JSON.stringify(packageJson, null, 2));
 
     // *******************
@@ -109,10 +108,8 @@ export default class Init extends Command {
 
     // Check if they're using yarn
     if (hasYarnLock) {
-      // TODO
       execSync("yarn add --dev eb-scripts", { cwd: pathWhereScriptIsRunning });
     } else {
-      // TODO
       execSync("npm add --save-dev eb-scripts", {
         cwd: pathWhereScriptIsRunning
       });
