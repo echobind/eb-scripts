@@ -26,13 +26,13 @@ describe("The `generate` command", () => {
     }
   });
 
-  it.skip("expects to find a temporary directory in src/components", async () => {
+  it("expects to find a temporary directory in src/components", async () => {
     const tempDirectoryExists = await fse.pathExists(tempRoot);
 
     expect(tempDirectoryExists).toBe(true);
   });
 
-  it.skip("throws an error if you don't pass any args", async () => {
+  it("throws an error if you don't pass any args", async () => {
     const generateCommand = () =>
       execSync(`./bin/run generate`, {
         cwd: root
@@ -41,7 +41,7 @@ describe("The `generate` command", () => {
     expect(generateCommand).toThrowErrorMatchingSnapshot();
   });
 
-  it.skip("works with a arg of a valid template and uses the default src/components path flag", async () => {
+  it("works with a arg of a valid template and uses the default src/components path flag", async () => {
     const componentName = "TestComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
@@ -88,7 +88,7 @@ describe("The `generate` command", () => {
     expect(componentIndexExists).toBe(true);
   });
 
-  it.skip("uses the default templates if none in the users directory and the default src/components path flag", async () => {
+  it("uses the default templates if none in the users directory and the default src/components path flag", async () => {
     const componentName = "DefaultTemplateComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
@@ -105,7 +105,7 @@ describe("The `generate` command", () => {
     expect(componentIndexExists).toBe(true);
   });
 
-  it.skip("throws an error when you pass an invalid flag", () => {
+  it("throws an error when you pass an invalid flag", () => {
     const generateCommand = () =>
       execSync(`./bin/run generate fake-component -n FakeComponent`, {
         cwd: root
@@ -120,7 +120,7 @@ describe("The `generate` command", () => {
     expect(generateCommand).toThrowErrorMatchingSnapshot();
   });
 
-  it.skip("uses the users template if they have one", async () => {
+  it("uses the users template if they have one", async () => {
     const pathToNewTemplate = `${root}/_templates/react-component/new`;
     const newComponentName = "Test";
     // Make a react-component template
