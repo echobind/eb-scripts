@@ -4,10 +4,19 @@ import {
   getTemplateLocation,
   pathWhereScriptIsRunning,
   rootDirectory
-} from "../utils/getTemplateLocation";
+} from "../utils/";
 
-const DEFAULT_COMPONENT_NAME = "MyNewComponent";
+export const DEFAULT_COMPONENT_NAME = "MyNewComponent";
 const DEFAULT_TEMPLATE_NAME = "react-component";
+
+/**
+ * @description valid template type
+ * @example react-component
+ * @todo eventually, we'll add other template types
+ */
+type TemplateType = "react-component";
+
+const validTemplateTypes: TemplateType[] = ["react-component"];
 
 export default class Generate extends Command {
   static description = "generates new files";
@@ -23,7 +32,11 @@ export default class Generate extends Command {
     help: flags.help({ char: "h" }),
     // flag with a value (-t, --template=VALUE)
     // name should correspond with one of the following names in /_templates
-    template: flags.string({ char: "t", description: "template to use" }),
+    template: flags.string({
+      char: "t",
+      description: "template to use",
+      options: validTemplateTypes
+    }),
     // flag with a value (-n, --name=VALUE)
     name: flags.string({ char: "n", description: "name to print" })
   };
@@ -34,7 +47,7 @@ export default class Generate extends Command {
       description: "the template you want to use",
       required: true,
       default: DEFAULT_TEMPLATE_NAME,
-      options: ["react-component"]
+      options: ["react-component"] as TemplateType[]
     },
     {
       name: "component name",
@@ -45,7 +58,10 @@ export default class Generate extends Command {
 
   async run() {
     const { flags } = this.parse(Generate);
-    const template = flags.template || DEFAULT_TEMPLATE_NAME;
+    // Assert flags.template as a TemplateType, so TS knows it should be a TemplateType
+    const template = (flags.template as TemplateType) || DEFAULT_TEMPLATE_NAME;
+    // Then we manually check if it is
+    const isValidTemplate = validTemplateTypes.includes(template);
     const name = flags.name || DEFAULT_COMPONENT_NAME;
     const templateLocation = getTemplateLocation();
     const templatePath = `HYGEN_TMPLS=${templateLocation}`;

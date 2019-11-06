@@ -8,8 +8,8 @@
   },
   "bugs": "https://github.com/echobind/eb-scripts/issues",
   "dependencies": {
-    "@oclif/command": "^1",
-    "@oclif/config": "^1",
+    "@oclif/command": "^1.5.19",
+    "@oclif/config": "^1.13.3",
     "@oclif/plugin-help": "^2",
     "hygen": "^5.0.1",
     "tslib": "^1"
@@ -18,8 +18,10 @@
     "@oclif/dev-cli": "^1",
     "@semantic-release/git": "^7.0.17",
     "@semantic-release/npm": "^5.3.2",
+    "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.21",
     "@types/node": "^12.12.3",
+    "fs-extra": "^8.1.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-echobind": "^0.1.0",
