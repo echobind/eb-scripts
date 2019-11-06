@@ -83,7 +83,7 @@
         }
       ],
       [
-        "semantic-release/commit-analyzer",
+        "@semantic-release/commit-analyzer",
         {
           "preset": "angular",
           "parserOpts": {
@@ -96,7 +96,7 @@
         }
       ],
       [
-        "semantic-release/release-notes-generator",
+        "@semantic-release/release-notes-generator",
         {
           "preset": "angular",
           "parserOpts": {
