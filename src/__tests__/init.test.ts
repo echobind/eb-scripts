@@ -76,7 +76,6 @@ describe("The `init` command", () => {
     });
     const packageJson = JSON.parse(data);
     const scripts = packageJson.scripts;
-    console.log(scripts, "here they are");
 
     const devDependencies = packageJson.devDependencies;
 
@@ -103,7 +102,6 @@ describe("The `init` command", () => {
     });
     const packageJson = JSON.parse(data);
     const scripts = packageJson.scripts;
-    console.log(scripts, "here they are");
     const devDependencies = packageJson.devDependencies;
     const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
 
