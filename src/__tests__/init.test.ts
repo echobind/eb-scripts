@@ -2,6 +2,7 @@ import * as path from "path";
 import * as fse from "fs-extra";
 import { execSync } from "child_process";
 import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
+import { scriptsByProject } from "../commands/init";
 
 let root = process.cwd();
 
@@ -64,8 +65,9 @@ describe("The `init` command", () => {
     expect(initCommand).toThrowErrorMatchingSnapshot();
   });
 
-  it("works with an argument of a valid project (react)", async () => {
-    execSync(`./bin/run init react`, {
+  it("works with an argument of a valid project: react", async () => {
+    const project = "react";
+    execSync(`./bin/run init ${project}`, {
       cwd: root
     });
 
@@ -75,10 +77,36 @@ describe("The `init` command", () => {
     const devDependencies = packageJson.devDependencies;
 
     const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
-    const hasGComponentScript = Object.keys(scripts).includes("g:component");
+    const scriptName = "g:component";
+    const hasGComponentScript = Object.keys(scripts).includes(scriptName);
+    // Check that the g:component script matches
+    const expectedScript = scriptsByProject[project]["g:component"];
 
     expect(hasEbScripts).toBe(true);
     expect(hasGComponentScript).toBe(true);
+    expect(scripts[scriptName]).toMatch(expectedScript);
+  });
+
+  it("works with an argument of a valid project: react-typescript", async () => {
+    const project = "react-typescript";
+    execSync(`./bin/run init ${project}`, {
+      cwd: root
+    });
+
+    const packageJson = require(`${root}/package.json`);
+    const scripts = packageJson.scripts;
+
+    const devDependencies = packageJson.devDependencies;
+
+    const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
+    const scriptName = "g:component";
+    const hasGComponentScript = Object.keys(scripts).includes(scriptName);
+    // Check that the g:component script matches
+    const expectedScript = scriptsByProject[project]["g:component"];
+
+    expect(hasEbScripts).toBe(true);
+    expect(hasGComponentScript).toBe(true);
+    expect(scripts[scriptName]).toMatch(expectedScript);
   });
 
   it("throws an error when you pass an invalid flag", () => {

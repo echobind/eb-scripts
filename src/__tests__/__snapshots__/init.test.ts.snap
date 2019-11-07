@@ -4,14 +4,14 @@ exports[`The \`init\` command throws an error if you don't pass an argument for 
 "Command failed: ./bin/run init
  ›   Error: Missing 1 required arg:
  ›   project  The language or framework of the project.
- ›             Valid options: react
+ ›             Valid options: react,react-typescript
  ›   See more help with --help
 "
 `;
 
 exports[`The \`init\` command throws an error when you pass an invalid flag 1`] = `
 "Command failed: ./bin/run init rust
- ›   Error: Expected rust to be one of: react
+ ›   Error: Expected rust to be one of: react, react-typescript
  ›   See more help with --help
 "
 `;
