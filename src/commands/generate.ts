@@ -9,15 +9,18 @@ import {
 export const DEFAULT_COMPONENT_NAME = "MyNewComponent";
 const DEFAULT_TEMPLATE_NAME = "react-component";
 const DEFAULT_PATH = "src/components";
+// "as const" returns a readonly union type of strings from the array
+const VALID_TEMPLATE_TYPES = ["react-component"] as const;
 
 /**
  * @description valid template type
  * @example react-component
  * @todo eventually, we'll add other template types
  */
-type TemplateType = "react-component";
-
-const validTemplateTypes: TemplateType[] = ["react-component"];
+type Template = typeof VALID_TEMPLATE_TYPES[number];
+// We spread the Valid Template Types into a new array
+// so that it is "mutable" and can be used with flags.template.options
+const templateOptions = [...VALID_TEMPLATE_TYPES];
 
 export default class Generate extends Command {
   static description = "generates new files";
@@ -36,7 +39,7 @@ export default class Generate extends Command {
     template: flags.string({
       char: "t",
       description: "template to use",
-      options: validTemplateTypes
+      options: templateOptions
     }),
     // flag with a value (-n, --name=VALUE)
     name: flags.string({
@@ -57,15 +60,14 @@ export default class Generate extends Command {
       name: "templateName",
       description: "the template you want to use",
       required: true,
-      options: ["react-component"] as TemplateType[]
+      options: templateOptions
     }
   ];
 
   async run() {
     const { flags, args } = this.parse(Generate);
     // Assert flags.template as a TemplateType, so TS knows it should be a TemplateType
-    const template =
-      (args.templateName as TemplateType) || DEFAULT_TEMPLATE_NAME;
+    const template = args.templateName || DEFAULT_TEMPLATE_NAME;
     const name = flags.name;
     // The path where the files will go when generated
     const path = flags.path;
