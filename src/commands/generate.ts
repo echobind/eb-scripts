@@ -10,7 +10,10 @@ export const DEFAULT_COMPONENT_NAME = "MyNewComponent";
 const DEFAULT_TEMPLATE_NAME = "react-component";
 const DEFAULT_PATH = "src/components";
 // "as const" returns a readonly union type of strings from the array
-const VALID_TEMPLATE_TYPES = ["react-component"] as const;
+const VALID_TEMPLATE_TYPES = [
+  "react-component",
+  "react-typescript-component"
+] as const;
 
 /**
  * @description valid template type
