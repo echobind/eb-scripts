@@ -71,8 +71,12 @@ describe("The `init` command", () => {
       cwd: root
     });
 
-    const packageJson = require(`${root}/package.json`);
+    const data = fse.readFileSync(`${root}/package.json`, {
+      encoding: "utf8"
+    });
+    const packageJson = JSON.parse(data);
     const scripts = packageJson.scripts;
+    console.log(scripts, "here they are");
 
     const devDependencies = packageJson.devDependencies;
 
@@ -89,16 +93,20 @@ describe("The `init` command", () => {
 
   it("works with an argument of a valid project: react-typescript", async () => {
     const project = "react-typescript";
+
     execSync(`./bin/run init ${project}`, {
       cwd: root
     });
 
-    const packageJson = require(`${root}/package.json`);
+    const data = fse.readFileSync(`${root}/package.json`, {
+      encoding: "utf8"
+    });
+    const packageJson = JSON.parse(data);
     const scripts = packageJson.scripts;
-
+    console.log(scripts, "here they are");
     const devDependencies = packageJson.devDependencies;
-
     const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
+
     const scriptName = "g:component";
     const hasGComponentScript = Object.keys(scripts).includes(scriptName);
     // Check that the g:component script matches
