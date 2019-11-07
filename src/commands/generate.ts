@@ -34,13 +34,6 @@ export default class Generate extends Command {
 
   static flags = {
     help: flags.help({ char: "h" }),
-    // flag with a value (-t, --template=VALUE)
-    // name should correspond with one of the following names in /_templates
-    template: flags.string({
-      char: "t",
-      description: "template to use",
-      options: templateOptions
-    }),
     // flag with a value (-n, --name=VALUE)
     name: flags.string({
       char: "n",
