@@ -18,7 +18,7 @@ type Scripts = {
  * @example `react`
  * @todo eventually, we'll add others like `react-native`, `react-typescript`, `node`, etc.
  */
-type ProjectType = "react";
+type ProjectType = "react" | "react-typescript";
 
 /**
  * @description the available options for generate scripts that may be added to a user's `package.json`
@@ -29,9 +29,13 @@ type ScriptByProject = {
 
 // Grab the path of the user's project
 const pathWhereScriptIsRunning = process.cwd();
-const scriptsByProject: ScriptByProject = {
+export const scriptsByProject: ScriptByProject = {
   react: {
     "g:component": "eb-scripts generate react-component -p src/components -n"
+  },
+  "react-typescript": {
+    "g:component":
+      "eb-scripts generate react-typescript-component -p src/components -n"
   }
 };
 
@@ -60,7 +64,6 @@ export default class Init extends Command {
 
   async run() {
     const { args } = this.parse(Init);
-    console.log("hello args", args);
     const project = args.project || DEFAULT_PROJECT_NAME;
     // Grab their package Json
     const packageJsonLocation = `${pathWhereScriptIsRunning}/package.json`;
