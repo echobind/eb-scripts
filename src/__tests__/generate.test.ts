@@ -57,6 +57,30 @@ describe("The `generate` command", () => {
     expect(componentIndexExists).toBe(true);
   });
 
+  it("works with the react-typescript template and uses the default src/components path flag", async () => {
+    const componentName = "TypeScriptComponent";
+    const componentFolderPath = `${tempRoot}/${componentName}`;
+
+    execSync(
+      `./bin/run generate react-typescript-component -n ${componentName}`,
+      {
+        cwd: root
+      }
+    );
+
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
+      `${componentFolderPath}/index.ts`
+    );
+
+    const componentTsxExists = fse.existsSync(
+      `${componentFolderPath}/${componentName}.tsx`
+    );
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
+    expect(componentTsxExists).toBe(true);
+  });
+
   it("uses the default templates if none in the users directory and the default src/components path flag", async () => {
     const componentName = "DefaultTemplateComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
