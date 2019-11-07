@@ -196,8 +196,3 @@ describe("The `generate` command", () => {
     await fse.remove(`${root}/_templates`);
   });
 });
-
-    expect(newComponentFolderExists).toBe(true);
-    expect(componentIndexExists).toBe(true);
-  });
-});
