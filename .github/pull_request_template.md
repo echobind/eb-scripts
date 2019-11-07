@@ -13,7 +13,7 @@ This PR...
 - [ ] your PR is pointed at `next` (unless it's a new release)
 - [ ] tested locally
 - [ ] installed new dependencies
-- [ ] updated the docs
+- [ ] updated the docs (run `yarn prepack`)
 - [ ] added a test
 
 Fixes #
