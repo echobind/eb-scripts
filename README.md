@@ -20,7 +20,6 @@ A CLI and scripts used at Echobind
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
@@ -32,7 +31,6 @@ USAGE
   $ eb-scripts COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
@@ -103,7 +101,6 @@ EXAMPLE
 ```
 
 _See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0-development/src/commands/init.ts)_
-
 <!-- commandsstop -->
 
 # Contributing
