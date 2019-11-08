@@ -1,6 +1,6 @@
 import * as path from "path";
 import * as fse from "fs-extra";
-import { execSync } from "child_process";
+import { execSync, spawn } from "child_process";
 
 let root = process.cwd();
 let tempRoot = path.join(`${root}/src`, "/components");
@@ -85,7 +85,7 @@ describe("The `generate` command", () => {
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
     execSync(
-      `./bin/run generate react-native-typescript-component -n ${componentName}`,
+      `./bin/run generate react-naeive-typescript-component -n ${componentName}`,
       {
         cwd: root
       }
@@ -112,6 +112,32 @@ describe("The `generate` command", () => {
       );
       expect(componentStoriesExists).toBe(true);
     }
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
+    expect(componentTsxExists).toBe(true);
+  });
+
+  it("works with the react-native-typescript-screen template and uses the default src/screens", async () => {
+    const pathToScreens = path.join(`${root}/src`, "/screens");
+    const componentName = "ReactNativeTypeScriptScreen";
+    const componentFolderPath = `${pathToScreens}/${componentName}`;
+
+    // execSync(
+    //   `./bin/run generate react-native-typescript-screen -n ${componentName}`,
+    //   {
+    //     cwd: root,
+    //     input: "FC"
+    //   }
+    // );
+
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
+      `${componentFolderPath}/index.ts`
+    );
+    const componentTsxExists = fse.existsSync(
+      `${componentFolderPath}/${componentName}.tsx`
+    );
+
     expect(newComponentFolderExists).toBe(true);
     expect(componentIndexExists).toBe(true);
     expect(componentTsxExists).toBe(true);
