@@ -10,17 +10,15 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-
-- [eb-scripts](#eb-scripts)
-- [Usage](#usage)
-- [Commands](#commands)
-- [Contributing](#contributing)
-  <!-- tocstop -->
+* [eb-scripts](#eb-scripts)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Contributing](#contributing)
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
@@ -32,7 +30,6 @@ USAGE
   $ eb-scripts COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
@@ -104,7 +101,6 @@ EXAMPLE
 ```
 
 _See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0-development/src/commands/init.ts)_
-
 <!-- commandsstop -->
 
 # Contributing
