@@ -12,7 +12,8 @@ const DEFAULT_PATH = "src/components";
 // "as const" returns a readonly union type of strings from the array
 const VALID_TEMPLATE_TYPES = [
   "react-component",
-  "react-typescript-component"
+  "react-typescript-component",
+  "react-native-typescript-component"
 ] as const;
 
 /**
