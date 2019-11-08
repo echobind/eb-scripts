@@ -11,7 +11,7 @@ exports[`The \`init\` command throws an error if you don't pass an argument for 
 
 exports[`The \`init\` command throws an error when you pass an invalid flag 1`] = `
 "Command failed: ./bin/run init rust
- ›   Error: Expected rust to be one of: react, react-typescript, 
+ ›   Error: Expected rust to be one of: react, react-typescript,
  ›   react-native-typescript
  ›   See more help with --help
 "

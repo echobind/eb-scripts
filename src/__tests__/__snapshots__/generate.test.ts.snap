@@ -10,8 +10,8 @@ exports[`The \`generate\` command throws an error if you don't pass any args 1`]
 
 exports[`The \`generate\` command throws an error when you pass an invalid flag 1`] = `
 "Command failed: ./bin/run generate fake-component -n FakeComponent
- ›   Error: Expected fake-component to be one of: react-component, 
- ›   react-typescript-component, react-native-typescript-component, 
+ ›   Error: Expected fake-component to be one of: react-component,
+ ›   react-typescript-component, react-native-typescript-component,
  ›   react-native-typescript-screen, react-native-e2e, util-typescript
  ›   See more help with --help
 "

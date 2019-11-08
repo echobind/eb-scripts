@@ -20,6 +20,7 @@ A CLI and scripts used at Echobind
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
@@ -31,6 +32,7 @@ USAGE
   $ eb-scripts COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
@@ -46,16 +48,15 @@ generates new files
 
 ```
 USAGE
-  $ eb-scripts generate TEMPLATE NAME [COMPONENT NAME]
+  $ eb-scripts generate TEMPLATENAME
 
 ARGUMENTS
-  TEMPLATE NAME   (react-component) [default: react-component] the template you want to use
-  COMPONENT NAME  [default: MyNewComponent] the name of the component or file you want to generate
+  TEMPLATENAME  (react-component|react-typescript-component) the template you want to use
 
 OPTIONS
   -h, --help       show CLI help
   -n, --name=name  [default: MyNewComponent] name to print
-  -p, --path=path  path to where you want the files to go
+  -p, --path=path  [default: src/components] path to where you want the files to go
 
 EXAMPLE
   $ eb-scripts generate react-component -n MyNewComponent -p src/components
@@ -91,17 +92,18 @@ USAGE
   $ eb-scripts init PROJECT
 
 ARGUMENTS
-  PROJECT  (react) [default: react] The language or framework of the project
+  PROJECT  (react|react-typescript) The language or framework of the project.
+           Valid options: react,react-typescript
 
 OPTIONS
-  -h, --help             show CLI help
-  -p, --project=project  language/framework of project
+  -h, --help  show CLI help
 
 EXAMPLE
-  $ npx eb-scripts init -p react
+  $ npx eb-scripts init react
 ```
 
 _See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0-development/src/commands/init.ts)_
+
 <!-- commandsstop -->
 
 # Contributing
