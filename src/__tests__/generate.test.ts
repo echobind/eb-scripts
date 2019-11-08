@@ -17,10 +17,9 @@ describe("The `generate` command", () => {
   });
 
   afterAll(async () => {
-    // delete our temporary directories
+    // delete our temporary directory
     try {
       await fse.remove(tempRoot);
-      await fse.remove(`${root}/_templates`);
     } catch (err) {
       console.error(err);
     }
@@ -32,28 +31,20 @@ describe("The `generate` command", () => {
     expect(tempDirectoryExists).toBe(true);
   });
 
-  it("works without flags", async () => {
-    const componentName = DEFAULT_COMPONENT_NAME;
-    const componentFolderPath = `${tempRoot}/${componentName}`;
+  it("throws an error if you don't pass any args", async () => {
+    const generateCommand = () =>
+      execSync(`./bin/run generate`, {
+        cwd: root
+      });
 
-    execSync(`./bin/run generate`, {
-      cwd: root
-    });
-
-    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
-    const componentIndexExists = fse.existsSync(
-      `${componentFolderPath}/index.js`
-    );
-
-    expect(newComponentFolderExists).toBe(true);
-    expect(componentIndexExists).toBe(true);
+    expect(generateCommand).toThrowErrorMatchingSnapshot();
   });
 
-  it("works with a flag of a valid template flag", async () => {
+  it("works with a arg of a valid template and uses the default src/components path flag", async () => {
     const componentName = "TestComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
-    execSync(`./bin/run generate -t react-component -n ${componentName}`, {
+    execSync(`./bin/run generate react-component -n ${componentName}`, {
       cwd: root
     });
 
@@ -66,11 +57,35 @@ describe("The `generate` command", () => {
     expect(componentIndexExists).toBe(true);
   });
 
-  it("uses the default templates if none in the users directory", async () => {
+  it("works with the react-typescript template and uses the default src/components path flag", async () => {
+    const componentName = "TypeScriptComponent";
+    const componentFolderPath = `${tempRoot}/${componentName}`;
+
+    execSync(
+      `./bin/run generate react-typescript-component -n ${componentName}`,
+      {
+        cwd: root
+      }
+    );
+
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
+      `${componentFolderPath}/index.ts`
+    );
+
+    const componentTsxExists = fse.existsSync(
+      `${componentFolderPath}/${componentName}.tsx`
+    );
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
+    expect(componentTsxExists).toBe(true);
+  });
+
+  it("uses the default templates if none in the users directory and the default src/components path flag", async () => {
     const componentName = "DefaultTemplateComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
-    execSync(`./bin/run generate -t react-component -n ${componentName}`, {
+    execSync(`./bin/run generate react-component -n ${componentName}`, {
       cwd: root
     });
 
@@ -85,11 +100,32 @@ describe("The `generate` command", () => {
 
   it("throws an error when you pass an invalid flag", () => {
     const generateCommand = () =>
-      execSync(`./bin/run generate -t fake-component -n FakeComponent`, {
+      execSync(`./bin/run generate fake-component -n FakeComponent`, {
         cwd: root
       });
 
     expect(generateCommand).toThrowErrorMatchingSnapshot();
+  });
+
+  it("uses the path flag if passed", async () => {
+    const componentName = "PathFlagComponent";
+    const customPath = "src/components/other";
+    const componentFolderPath = `${customPath}/${componentName}`;
+
+    execSync(
+      `./bin/run generate react-component -n ${componentName} -p ${customPath}`,
+      {
+        cwd: root
+      }
+    );
+
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
+      `${componentFolderPath}/index.js`
+    );
+
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
   });
 
   it("uses the users template if they have one", async () => {
@@ -112,7 +148,7 @@ describe("The `generate` command", () => {
     expect(newTemplateFolderExists).toBe(true);
     expect(newTemplateFileExists).toBe(true);
 
-    execSync(`./bin/run generate -t react-component -n ${newComponentName}`, {
+    execSync(`./bin/run generate react-component -n ${newComponentName}`, {
       cwd: root
     });
 
@@ -128,5 +164,7 @@ describe("The `generate` command", () => {
 
     expect(newGeneratedComponentExists).toBe(true);
     expect(newGeneratedComponentFolderExists).toBe(false);
+    // Remove the /_templates so it doesn't cause side effects
+    await fse.remove(`${root}/_templates`);
   });
 });

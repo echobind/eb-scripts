@@ -1,5 +1,5 @@
 ---
-to: <%= path %>/src/components/<%= h.changeCase.pascal(name) %>.jsx
+to: <%= root %>/<%= path %>/<%= h.changeCase.pascal(name) %>.jsx
 ---
 // Used for testing purposes
 <% component = h.changeCase.pascal(name) -%>

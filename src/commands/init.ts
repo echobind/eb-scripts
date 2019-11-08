@@ -18,7 +18,7 @@ type Scripts = {
  * @example `react`
  * @todo eventually, we'll add others like `react-native`, `react-typescript`, `node`, etc.
  */
-type ProjectType = "react";
+type ProjectType = "react" | "react-typescript";
 
 /**
  * @description the available options for generate scripts that may be added to a user's `package.json`
@@ -29,39 +29,42 @@ type ScriptByProject = {
 
 // Grab the path of the user's project
 const pathWhereScriptIsRunning = process.cwd();
-const scriptsByProject: ScriptByProject = {
+export const scriptsByProject: ScriptByProject = {
   react: {
-    "g:component": "eb-scripts generate -t react-component -n"
+    "g:component": "eb-scripts generate react-component -p src/components -n"
+  },
+  "react-typescript": {
+    "g:component":
+      "eb-scripts generate react-typescript-component -p src/components -n"
   }
 };
+
+// Use the keys from scriptsByProject as valid projec types
+const validProjectTypes: ProjectType[] = Object.keys(
+  scriptsByProject
+) as ProjectType[];
 export default class Init extends Command {
   static description =
     "initializes project by installing `eb-scripts` and adding scripts to `package.json`";
 
-  static examples = [`$ npx eb-scripts init -p react`];
+  static examples = [`$ npx eb-scripts init react`];
 
   static flags = {
-    help: flags.help({ char: "h" }),
-    // flag with a value (-p, --project=VALUE)
-    project: flags.string({
-      char: "p",
-      description: "language/framework of project"
-    })
+    help: flags.help({ char: "h" })
   };
 
   static args = [
     {
       name: "project",
       required: true,
-      description: "The language or framework of the project",
-      default: "react",
-      options: ["react"] as ProjectType[]
+      description: `The language or framework of the project.\nValid options: ${validProjectTypes}`,
+      options: validProjectTypes
     }
   ];
 
   async run() {
-    const { flags } = this.parse(Init);
-    const project = flags.project || DEFAULT_PROJECT_NAME;
+    const { args } = this.parse(Init);
+    const project = args.project || DEFAULT_PROJECT_NAME;
     // Grab their package Json
     const packageJsonLocation = `${pathWhereScriptIsRunning}/package.json`;
     const packageJson = require(packageJsonLocation);

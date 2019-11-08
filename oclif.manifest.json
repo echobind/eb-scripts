@@ -1,1 +1,71 @@
-{"version":"0.0.0-development","commands":{"generate":{"id":"generate","description":"generates new files","pluginName":"eb-scripts","pluginType":"core","aliases":[],"examples":["$ eb-scripts generate -t react-component -n MyNewComponent\n    Loaded templates: _templates\n    added: src/MyNewComponent.js\n"],"flags":{"help":{"name":"help","type":"boolean","char":"h","description":"show CLI help","allowNo":false},"template":{"name":"template","type":"option","char":"t","description":"template to use"},"name":{"name":"name","type":"option","char":"n","description":"name to print"}},"args":[{"name":"template name","description":"the template you want to use","required":true,"options":["react-component"],"default":"react-component"},{"name":"component name","description":"the name of the component or file you want to generate","default":"MyNewComponent"}]},"init":{"id":"init","description":"initializes project by installing `eb-scripts` and adding scripts to `package.json`","pluginName":"eb-scripts","pluginType":"core","aliases":[],"examples":["$ npx eb-scripts init -p react"],"flags":{"help":{"name":"help","type":"boolean","char":"h","description":"show CLI help","allowNo":false},"project":{"name":"project","type":"option","char":"p","description":"language/framework of project"}},"args":[{"name":"project","description":"The language or framework of the project","required":true,"options":["react"],"default":"react"}]}}}
+{
+  "version": "0.0.0-development",
+  "commands": {
+    "generate": {
+      "id": "generate",
+      "description": "generates new files",
+      "pluginName": "eb-scripts",
+      "pluginType": "core",
+      "aliases": [],
+      "examples": [
+        "$ eb-scripts generate react-component -n MyNewComponent -p src/components\n    Loaded templates: _templates\n    added: src/MyNewComponent.js\n"
+      ],
+      "flags": {
+        "help": {
+          "name": "help",
+          "type": "boolean",
+          "char": "h",
+          "description": "show CLI help",
+          "allowNo": false
+        },
+        "name": {
+          "name": "name",
+          "type": "option",
+          "char": "n",
+          "description": "name to print",
+          "default": "MyNewComponent"
+        },
+        "path": {
+          "name": "path",
+          "type": "option",
+          "char": "p",
+          "description": "path to where you want the files to go",
+          "default": "src/components"
+        }
+      },
+      "args": [
+        {
+          "name": "templateName",
+          "description": "the template you want to use",
+          "required": true,
+          "options": ["react-component", "react-typescript-component"]
+        }
+      ]
+    },
+    "init": {
+      "id": "init",
+      "description": "initializes project by installing `eb-scripts` and adding scripts to `package.json`",
+      "pluginName": "eb-scripts",
+      "pluginType": "core",
+      "aliases": [],
+      "examples": ["$ npx eb-scripts init react"],
+      "flags": {
+        "help": {
+          "name": "help",
+          "type": "boolean",
+          "char": "h",
+          "description": "show CLI help",
+          "allowNo": false
+        }
+      },
+      "args": [
+        {
+          "name": "project",
+          "description": "The language or framework of the project.\nValid options: react,react-typescript",
+          "required": true,
+          "options": ["react", "react-typescript"]
+        }
+      ]
+    }
+  }
+}
