@@ -48,28 +48,6 @@ describe("The `generate` command", () => {
       cwd: root
     });
 
-    await expect(newComponentFolderExists).toBe(true);
-    // expect(componentIndexExists).toBe(true);
-    done();
-  });
-
-  it("throws an error if you don't pass any args", async () => {
-    const generateCommand = () =>
-      execSync(`./bin/run generate`, {
-        cwd: root
-      });
-
-    expect(generateCommand).toThrowErrorMatchingSnapshot();
-  });
-
-  it("works with a arg of a valid template and uses the default src/components path flag", async () => {
-    const componentName = "TestComponent";
-    const componentFolderPath = `${tempRoot}/${componentName}`;
-
-    execSync(`./bin/run generate react-component -n ${componentName}`, {
-      cwd: root
-    });
-
     const newComponentFolderExists = await fse.pathExists(componentFolderPath);
     const componentIndexExists = fse.existsSync(
       `${componentFolderPath}/index.js`
@@ -119,12 +97,6 @@ describe("The `generate` command", () => {
     expect(newComponentFolderExists).toBe(true);
     expect(componentIndexExists).toBe(true);
   });
-
-  it("throws an error when you pass an invalid flag", () => {
-    const generateCommand = () =>
-      execSync(`./bin/run generate fake-component -n FakeComponent`, {
-        cwd: root
-      });
 
   it("throws an error when you pass an invalid flag", () => {
     const generateCommand = () =>
