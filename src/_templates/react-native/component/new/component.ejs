@@ -1,0 +1,31 @@
+---
+to: <%= root %>/<%= path %>/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>.tsx
+---
+<% const formattedName = h.inflection.transform(name, ['undasherize', 'classify']) -%>
+import React, { FC } from 'react';
+
+import { Container } from '../Container';
+
+interface Props {
+  /** prop info */
+  cool: boolean;
+}
+
+const DEFAULT_PROPS: Partial<Props> = {
+  cool: true,
+}
+
+/**
+ * Component docs: what does this component do?
+ */
+export const <%= formattedName %>: FC<Props> = (props = DEFAULT_PROPS) => {
+  const { children } = props;
+
+  return (
+    <Container>
+      {children}
+    </Container>
+  );
+};
+
+export default <%= formattedName %>;
