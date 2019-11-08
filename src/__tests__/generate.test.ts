@@ -1,7 +1,6 @@
 import * as path from "path";
 import * as fse from "fs-extra";
 import { execSync } from "child_process";
-import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 
 let root = process.cwd();
 let tempRoot = path.join(`${root}/src`, "/components");
@@ -76,6 +75,43 @@ describe("The `generate` command", () => {
     const componentTsxExists = fse.existsSync(
       `${componentFolderPath}/${componentName}.tsx`
     );
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
+    expect(componentTsxExists).toBe(true);
+  });
+
+  it("works with the react-native-typescript-component template and uses the default src/components path flag", async () => {
+    const componentName = "ReactNativeTypescriptComponent";
+    const componentFolderPath = `${tempRoot}/${componentName}`;
+
+    execSync(
+      `./bin/run generate react-native-typescript-component -n ${componentName}`,
+      {
+        cwd: root
+      }
+    );
+
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
+      `${componentFolderPath}/index.ts`
+    );
+    const componentTsxExists = fse.existsSync(
+      `${componentFolderPath}/${componentName}.tsx`
+    );
+
+    //Check if they have a storybook setup
+    const hasStoryBookDir = fse.existsSync(
+      `${tempRoot}/storybook/stories/index.ts`
+    );
+
+    // If they do,
+    // we assert that a .stories.tsx file was generated
+    if (hasStoryBookDir) {
+      const componentStoriesExists = fse.existsSync(
+        `${componentFolderPath}/${componentName}.stories.tsx`
+      );
+      expect(componentStoriesExists).toBe(true);
+    }
     expect(newComponentFolderExists).toBe(true);
     expect(componentIndexExists).toBe(true);
     expect(componentTsxExists).toBe(true);
