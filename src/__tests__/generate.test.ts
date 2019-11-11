@@ -1,6 +1,6 @@
 import * as path from "path";
 import * as fse from "fs-extra";
-import { execSync, spawn } from "child_process";
+import { execSync } from "child_process";
 
 let root = process.cwd();
 let tempRoot = path.join(`${root}/src`, "/components");
@@ -175,7 +175,7 @@ describe("The `generate` command", () => {
     expect(newTestFileExists).toBe(true);
     expect(newUtilFileExists).toBe(true);
     expect(newUtilIndexFileExists).toBe(true);
-    // Remove the / so it doesn't cause side effects
+    // Remove the utils temp directory so it doesn't cause side effects
     await fse.remove(pathToUtils);
   });
 

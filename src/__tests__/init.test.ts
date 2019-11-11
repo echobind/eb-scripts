@@ -1,9 +1,6 @@
-import * as path from "path";
 import * as fse from "fs-extra";
 import { execSync } from "child_process";
-import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 import { scriptsByProject } from "../commands/init";
-import { Script } from "vm";
 
 let root = process.cwd();
 
