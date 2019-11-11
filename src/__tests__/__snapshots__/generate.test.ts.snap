@@ -2,17 +2,17 @@
 
 exports[`The \`generate\` command throws an error if you don't pass any args 1`] = `
 "Command failed: ./bin/run generate
- ›   Error: Missing 1 required arg:
- ›   templateName  the template you want to use
- ›   See more help with --help
+ [31m›[39m   Error: Missing 1 required arg:
+ [31m›[39m   templateName  the template you want to use
+ [31m›[39m   See more help with --help
 "
 `;
 
 exports[`The \`generate\` command throws an error when you pass an invalid flag 1`] = `
 "Command failed: ./bin/run generate fake-component -n FakeComponent
- ›   Error: Expected fake-component to be one of: react-component,
- ›   react-typescript-component, react-native-typescript-component,
- ›   react-native-typescript-screen, react-native-e2e, util-typescript
- ›   See more help with --help
+ [31m›[39m   Error: Expected fake-component to be one of: react-component, 
+ [31m›[39m   react-typescript-component, react-native-typescript-component, 
+ [31m›[39m   react-native-typescript-screen, react-native-e2e, util-typescript
+ [31m›[39m   See more help with --help
 "
 `;
