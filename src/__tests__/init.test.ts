@@ -3,6 +3,7 @@ import * as fse from "fs-extra";
 import { execSync } from "child_process";
 import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 import { scriptsByProject } from "../commands/init";
+import { Script } from "vm";
 
 let root = process.cwd();
 
@@ -130,14 +131,17 @@ describe("The `init` command", () => {
     const devDependencies = packageJson.devDependencies;
     const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
 
-    const scriptName = "g:component";
-    const hasGComponentScript = Object.keys(scripts).includes(scriptName);
-    // Check that the g:component script matches
-    const expectedScript = scriptsByProject[project][scriptName];
+    const expectedScripts = ["g:component", "g:screen"];
 
     expect(hasEbScripts).toBe(true);
-    expect(hasGComponentScript).toBe(true);
-    expect(scripts[scriptName]).toMatch(expectedScript);
+
+    expectedScripts.forEach(script => {
+      const hasScript = Object.keys(scripts).includes(script);
+
+      const actualScript = scriptsByProject[project][script];
+      expect(hasScript).toBe(true);
+      expect(actualScript).toMatch(scripts[script]);
+    });
   });
 
   it("throws an error when you pass an invalid flag", () => {

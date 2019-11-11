@@ -39,7 +39,9 @@ export const scriptsByProject: ScriptByProject = {
   },
   "react-native-typescript": {
     "g:component":
-      "eb-scripts generate react-native-typescript-component -p src/components -n"
+      "eb-scripts generate react-native-typescript-component -p src/components -n",
+    "g:screen":
+      "eb-scripts generate react-native-typescript-screen -p src/screens -n"
   }
 };
 
