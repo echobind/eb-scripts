@@ -10,15 +10,28 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-* [eb-scripts](#eb-scripts)
-* [Usage](#usage)
-* [Commands](#commands)
-* [Contributing](#contributing)
-<!-- tocstop -->
+
+- [eb-scripts](#eb-scripts)
+- [Quickstart](#quickstart)
+- [Usage](#usage)
+- [Commands](#commands)
+- [Contributing](#contributing)
+  <!-- tocstop -->
+
+# Quickstart
+
+To get started quickly, from the root of your project run:
+
+```shell
+npx eb-scripts init (react|react-typescript|react-native-typescript)
+```
+
+This will install `eb-scripts` as a `devDependency` and add a few helpful `hygen` scripts to your `package.json`.
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
@@ -30,14 +43,16 @@ USAGE
   $ eb-scripts COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-* [`eb-scripts generate TEMPLATENAME`](#eb-scripts-generate-templatename)
-* [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
-* [`eb-scripts init PROJECT`](#eb-scripts-init-project)
+
+- [`eb-scripts generate TEMPLATENAME`](#eb-scripts-generate-templatename)
+- [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
+- [`eb-scripts init PROJECT`](#eb-scripts-init-project)
 
 ## `eb-scripts generate TEMPLATENAME`
 
@@ -101,6 +116,7 @@ EXAMPLE
 ```
 
 _See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v2.0.0/src/commands/init.ts)_
+
 <!-- commandsstop -->
 
 # Contributing
