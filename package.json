@@ -18,16 +18,17 @@
     "@oclif/dev-cli": "^1",
     "@semantic-release/commit-analyzer": "^6.3.2",
     "@semantic-release/git": "^7.0.17",
+    "@semantic-release/github": "^5.5.5",
     "@semantic-release/npm": "^5.3.2",
-    "@types/fs-extra": "^8.0.1",
     "@semantic-release/release-notes-generator": "^7.3.2",
+    "@types/fs-extra": "^8.0.1",
     "@types/jest": "^24.0.21",
     "@types/node": "^12.12.3",
-    "fs-extra": "^8.1.0",
     "eslint": "^6.6.0",
     "eslint-config-prettier": "^6.5.0",
     "eslint-plugin-echobind": "^0.1.0",
     "eslint-plugin-prettier": "^3.1.1",
+    "fs-extra": "^8.1.0",
     "globby": "^10",
     "husky": "^3.0.9",
     "jest": "^24.9.0",
@@ -82,6 +83,7 @@
           "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
         }
       ],
+      "@semantic-release/github",
       [
         "@semantic-release/commit-analyzer",
         {
