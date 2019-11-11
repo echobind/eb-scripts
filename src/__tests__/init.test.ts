@@ -131,7 +131,10 @@ describe("The `init` command", () => {
     const devDependencies = packageJson.devDependencies;
     const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
 
-    const expectedScripts = ["g:component", "g:screen"];
+    // Checks the expected scripts that we add during the `init` command
+    const expectedScripts = Object.keys(
+      scriptsByProject["react-native-typescript"]
+    );
 
     expect(hasEbScripts).toBe(true);
 
