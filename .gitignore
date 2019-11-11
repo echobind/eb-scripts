@@ -6,3 +6,7 @@
 /package-lock.json
 /tmp
 node_modules
+
+# Used for oclif
+# Should only exist when publishing
+oclif.manifest.json
