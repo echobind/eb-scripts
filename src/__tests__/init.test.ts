@@ -1,7 +1,5 @@
-import * as path from "path";
 import * as fse from "fs-extra";
 import { execSync } from "child_process";
-import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 import { scriptsByProject } from "../commands/init";
 
 let root = process.cwd();
@@ -108,11 +106,42 @@ describe("The `init` command", () => {
     const scriptName = "g:component";
     const hasGComponentScript = Object.keys(scripts).includes(scriptName);
     // Check that the g:component script matches
-    const expectedScript = scriptsByProject[project]["g:component"];
+    const expectedScript = scriptsByProject[project][scriptName];
 
     expect(hasEbScripts).toBe(true);
     expect(hasGComponentScript).toBe(true);
     expect(scripts[scriptName]).toMatch(expectedScript);
+  });
+
+  it("works with an argument of a valid project: react-native-typescript", async () => {
+    const project = "react-native-typescript";
+
+    execSync(`./bin/run init ${project}`, {
+      cwd: root
+    });
+
+    const data = fse.readFileSync(`${root}/package.json`, {
+      encoding: "utf8"
+    });
+    const packageJson = JSON.parse(data);
+    const scripts = packageJson.scripts;
+    const devDependencies = packageJson.devDependencies;
+    const hasEbScripts = Object.keys(devDependencies).includes("eb-scripts");
+
+    // Checks the expected scripts that we add during the `init` command
+    const expectedScripts = Object.keys(
+      scriptsByProject["react-native-typescript"]
+    );
+
+    expect(hasEbScripts).toBe(true);
+
+    expectedScripts.forEach(script => {
+      const hasScript = Object.keys(scripts).includes(script);
+
+      const actualScript = scriptsByProject[project][script];
+      expect(hasScript).toBe(true);
+      expect(actualScript).toMatch(scripts[script]);
+    });
   });
 
   it("throws an error when you pass an invalid flag", () => {

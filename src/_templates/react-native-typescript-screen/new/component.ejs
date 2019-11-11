@@ -1,0 +1,56 @@
+---
+to: <%= root %>/<%= path %>/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>.tsx
+---
+<% const comp = h.inflection.transform(name, ['undasherize', 'classify']) -%>
+<% if(componentType === 'Class') { -%>
+import React, { Component } from 'react';
+import styled from '@emotion/native';
+
+import { Screen } from '../../components/Screen';
+import { Text } from '../../components/Text';
+
+interface Props {
+  /** prop info */
+  myProp: string;
+}
+
+interface State {
+  /** state info */
+  myStateValue?: boolean;
+}
+
+const INITIAL_STATE: State = {
+  myStateValue: true,
+};
+
+export class <%= comp %> extends Component<Props, State> {
+  public state = INITIAL_STATE;
+
+  public render() {
+    return (
+      <Screen backgroundColor="green">
+        <Text><%= comp %> Screen</Text>
+      </Screen>
+    );
+  }
+}
+<% } else { %>
+import React, { FC } from 'react';
+import styled from '@emotion/native';
+
+import { Screen } from '../../components/Screen';
+import { Text } from '../../components/Text';
+
+interface Props {
+  /** prop info */
+  myProp: string;
+}
+
+export const <%= comp %>: FC<Props> = () => {
+  return (
+    <Screen backgroundColor="green">
+      <Text><%= comp %> Screen</Text>
+    </Screen>
+  );
+};
+<% } -%>

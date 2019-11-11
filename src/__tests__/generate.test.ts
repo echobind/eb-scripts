@@ -1,7 +1,6 @@
 import * as path from "path";
 import * as fse from "fs-extra";
 import { execSync } from "child_process";
-import { DEFAULT_COMPONENT_NAME } from "../commands/generate";
 
 let root = process.cwd();
 let tempRoot = path.join(`${root}/src`, "/components");
@@ -79,6 +78,103 @@ describe("The `generate` command", () => {
     expect(newComponentFolderExists).toBe(true);
     expect(componentIndexExists).toBe(true);
     expect(componentTsxExists).toBe(true);
+  });
+
+  it("works with the react-native-typescript-component template and uses the default src/components path flag", async () => {
+    const componentName = "Reactnativetypescriptcomponent";
+    const componentFolderPath = `${tempRoot}/${componentName}`;
+
+    execSync(
+      `./bin/run generate react-native-typescript-component -n ${componentName}`,
+      {
+        cwd: root
+      }
+    );
+
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
+      `${componentFolderPath}/index.ts`
+    );
+    const componentTsxExists = fse.existsSync(
+      `${componentFolderPath}/${componentName}.tsx`
+    );
+
+    //Check if they have a storybook setup
+    const hasStoryBookDir = fse.existsSync(
+      `${tempRoot}/storybook/stories/index.ts`
+    );
+
+    // If they do,
+    // we assert that a .stories.tsx file was generated
+    if (hasStoryBookDir) {
+      const componentStoriesExists = fse.existsSync(
+        `${componentFolderPath}/${componentName}.stories.tsx`
+      );
+      expect(componentStoriesExists).toBe(true);
+    }
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
+    expect(componentTsxExists).toBe(true);
+  });
+
+  it.skip("works with the react-native-typescript-screen template and uses the default src/screens path", async () => {
+    // TODO - finish this test
+    // Because there is a prompt, we'll need to use a spawn from child_process.
+    // Will create followup ticket.
+    // const pathToScreens = path.join(`${root}/src`, "/screens");
+    // const componentName = "ReactNativeTypeScriptScreen";
+    // const componentFolderPath = `${pathToScreens}/${componentName}`;
+    // const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    // const componentIndexExists = fse.existsSync(
+    //   `${componentFolderPath}/index.ts`
+    // );
+    // const componentTsxExists = fse.existsSync(
+    //   `${componentFolderPath}/${componentName}.tsx`
+    // );
+    // expect(newComponentFolderExists).toBe(true);
+    // expect(componentIndexExists).toBe(true);
+    // expect(componentTsxExists).toBe(true);
+  });
+
+  it("works with the react-native-e2e template and uses the default e2e path", async () => {
+    const testName = "ReactNativeE2ETest";
+    const e2ePath = "e2e";
+    execSync(`./bin/run generate react-native-e2e -n ${testName}`, {
+      cwd: root
+    });
+    const pathToE2e = path.join(`${root}/${e2ePath}`);
+    const testFilePath = `${pathToE2e}/${testName}.spec.js`;
+
+    const newTestFileExists = await fse.pathExists(testFilePath);
+
+    expect(newTestFileExists).toBe(true);
+    // Remove the /e2e so it doesn't cause side effects
+    await fse.remove(`${root}/${e2ePath}`);
+  });
+
+  it("works with the util-typescript template ", async () => {
+    const testName = "CoolFunction";
+    const utilsPath = "utils";
+    execSync(
+      `./bin/run generate util-typescript -n ${testName} -p ${utilsPath}`,
+      {
+        cwd: root
+      }
+    );
+    const pathToUtils = path.join(`${root}/`, `${utilsPath}`);
+    const utilTestFilePath = `${pathToUtils}/${testName}/test.ts`;
+    const utilFilePath = `${pathToUtils}/${testName}/${testName}.ts`;
+    const utilIndexFilePath = `${pathToUtils}/${testName}/index.ts`;
+
+    const newTestFileExists = await fse.pathExists(utilTestFilePath);
+    const newUtilFileExists = await fse.pathExists(utilFilePath);
+    const newUtilIndexFileExists = await fse.pathExists(utilIndexFilePath);
+
+    expect(newTestFileExists).toBe(true);
+    expect(newUtilFileExists).toBe(true);
+    expect(newUtilIndexFileExists).toBe(true);
+    // Remove the utils temp directory so it doesn't cause side effects
+    await fse.remove(pathToUtils);
   });
 
   it("uses the default templates if none in the users directory and the default src/components path flag", async () => {

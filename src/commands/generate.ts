@@ -8,11 +8,18 @@ import {
 
 export const DEFAULT_COMPONENT_NAME = "MyNewComponent";
 const DEFAULT_TEMPLATE_NAME = "react-component";
-const DEFAULT_PATH = "src/components";
+const DEFAULT_COMPONENT_PATH = "src/components";
+const DEFAULT_SCREEN_PATH = "src/screens";
+const DEFAULT_E2E_PATH = "e2e";
+const DEFAULT_UTILS_PATH = "src/utils";
 // "as const" returns a readonly union type of strings from the array
 const VALID_TEMPLATE_TYPES = [
   "react-component",
-  "react-typescript-component"
+  "react-typescript-component",
+  "react-native-typescript-component",
+  "react-native-typescript-screen",
+  "react-native-e2e",
+  "util-typescript"
 ] as const;
 
 /**
@@ -46,7 +53,6 @@ export default class Generate extends Command {
     // flag with a value (-p, --path=VALUE)
     path: flags.string({
       char: "p",
-      default: DEFAULT_PATH,
       description: "path to where you want the files to go"
     })
   };
@@ -65,8 +71,35 @@ export default class Generate extends Command {
     // Assert flags.template as a TemplateType, so TS knows it should be a TemplateType
     const template = args.templateName || DEFAULT_TEMPLATE_NAME;
     const name = flags.name;
+    let DEFAULT_PATH = "";
+    // If the template is a component
+    if (
+      [
+        "react-component",
+        "react-typescript-component",
+        "react-native-typescript-component"
+      ].includes(template)
+    ) {
+      // Use the default component path
+      DEFAULT_PATH = DEFAULT_COMPONENT_PATH;
+    }
+
+    // If the template is a screen
+    if (template === "react-native-typescript-screen") {
+      // Use the screen path
+      DEFAULT_PATH = DEFAULT_SCREEN_PATH;
+    }
+
+    if (template === "react-native-e2e") {
+      DEFAULT_PATH = DEFAULT_E2E_PATH;
+    }
+
+    if (template === "util-typescript") {
+      DEFAULT_PATH = DEFAULT_UTILS_PATH;
+    }
+
     // The path where the files will go when generated
-    const path = flags.path;
+    let path = flags.path || DEFAULT_PATH;
     const templateLocation = getTemplateLocation();
     const templatePath = `HYGEN_TMPLS=${templateLocation}`;
 
