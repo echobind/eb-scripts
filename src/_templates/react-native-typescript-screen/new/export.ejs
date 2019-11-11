@@ -1,0 +1,4 @@
+---
+to: <%= root %>/<%= path %>/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>/index.ts
+---
+export * from './<%= h.inflection.transform(name, ['undasherize', 'classify']) %>';

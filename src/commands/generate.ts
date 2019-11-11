@@ -1,25 +1,42 @@
 import { Command, flags } from "@oclif/command";
 import { execSync } from "child_process";
-import * as path from "path";
-import * as fs from "fs";
+import {
+  getTemplateLocation,
+  pathWhereScriptIsRunning,
+  rootDirectory
+} from "../utils/";
 
-// The root of our package, so that we can leverage the scripts in the `package.json`
-const rootDirectory = path.join(__dirname, "..");
-const defaultTemplatePath = `${rootDirectory}/_templates`;
-// Grab the path of the user's project
-const pathWhereScriptIsRunning = process.cwd();
+export const DEFAULT_COMPONENT_NAME = "MyNewComponent";
+const DEFAULT_TEMPLATE_NAME = "react-component";
+const DEFAULT_COMPONENT_PATH = "src/components";
+const DEFAULT_SCREEN_PATH = "src/screens";
+const DEFAULT_E2E_PATH = "e2e";
+const DEFAULT_UTILS_PATH = "src/utils";
+// "as const" returns a readonly union type of strings from the array
+const VALID_TEMPLATE_TYPES = [
+  "react-component",
+  "react-typescript-component",
+  "react-native-typescript-component",
+  "react-native-typescript-screen",
+  "react-native-e2e",
+  "util-typescript"
+] as const;
 
-// This is where their templates are (at least we assume so)
-const theirTemplatePath = pathWhereScriptIsRunning + "/_templates";
-
-// Check if they have a template directory
-const hasTemplates = fs.existsSync(theirTemplatePath);
+/**
+ * @description valid template type
+ * @example react-component
+ * @todo eventually, we'll add other template types
+ */
+type Template = typeof VALID_TEMPLATE_TYPES[number];
+// We spread the Valid Template Types into a new array
+// so that it is "mutable" and can be used with flags.template.options
+const templateOptions = [...VALID_TEMPLATE_TYPES];
 
 export default class Generate extends Command {
   static description = "generates new files";
 
   static examples = [
-    `$ eb-scripts generate -t react-component -n MyNewComponent
+    `$ eb-scripts generate react-component -n MyNewComponent -p src/components
     Loaded templates: _templates
     added: src/MyNewComponent.js
 `
@@ -28,35 +45,71 @@ export default class Generate extends Command {
   static flags = {
     help: flags.help({ char: "h" }),
     // flag with a value (-n, --name=VALUE)
-    name: flags.string({ char: "n", description: "name to print" }),
-    // flag with a value (-t, --template=VALUE)
-    // name should correspond with one of the following names in /_templates
-    template: flags.string({ char: "t", description: "template to use" })
+    name: flags.string({
+      char: "n",
+      description: "name to print",
+      default: DEFAULT_COMPONENT_NAME
+    }),
+    // flag with a value (-p, --path=VALUE)
+    path: flags.string({
+      char: "p",
+      description: "path to where you want the files to go"
+    })
   };
 
-  static args = [{ name: "component name" }];
+  static args = [
+    {
+      name: "templateName",
+      description: "the template you want to use",
+      required: true,
+      options: templateOptions
+    }
+  ];
 
   async run() {
-    const { flags } = this.parse(Generate);
-    const template = flags.template || "";
-    const name = flags.name || "DefaultName";
-    let templateLocation = "";
+    const { flags, args } = this.parse(Generate);
+    // Assert flags.template as a TemplateType, so TS knows it should be a TemplateType
+    const template = args.templateName || DEFAULT_TEMPLATE_NAME;
+    const name = flags.name;
+    let DEFAULT_PATH = "";
+    // If the template is a component
+    if (
+      [
+        "react-component",
+        "react-typescript-component",
+        "react-native-typescript-component"
+      ].includes(template)
+    ) {
+      // Use the default component path
+      DEFAULT_PATH = DEFAULT_COMPONENT_PATH;
+    }
+
+    // If the template is a screen
+    if (template === "react-native-typescript-screen") {
+      // Use the screen path
+      DEFAULT_PATH = DEFAULT_SCREEN_PATH;
+    }
+
+    if (template === "react-native-e2e") {
+      DEFAULT_PATH = DEFAULT_E2E_PATH;
+    }
+
+    if (template === "util-typescript") {
+      DEFAULT_PATH = DEFAULT_UTILS_PATH;
+    }
+
+    // The path where the files will go when generated
+    let path = flags.path || DEFAULT_PATH;
+    const templateLocation = getTemplateLocation();
+    const templatePath = `HYGEN_TMPLS=${templateLocation}`;
 
     this.log(
-      `Generating new component using template ${template} at ./src/components/${name}.js`
+      `Generating new component using template ${template} at ${pathWhereScriptIsRunning}/${path}`
     );
-
-    // If they do have templates, use theirs
-    if (hasTemplates) {
-      templateLocation = `HYGEN_TMPLS=${theirTemplatePath}`;
-    } else {
-      // Otherwise, use ours
-      templateLocation = `HYGEN_TMPLS=${defaultTemplatePath}`;
-    }
 
     // Generate template
     execSync(
-      `${templateLocation} yarn gen ${template} new ${name} --path=${pathWhereScriptIsRunning}`,
+      `${templatePath} yarn gen ${template} new ${name} --root=${pathWhereScriptIsRunning} --path=${path}`,
       { cwd: rootDirectory, stdio: "inherit" }
     );
   }

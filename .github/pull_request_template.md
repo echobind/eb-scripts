@@ -10,9 +10,8 @@ This PR...
 
 ## Checklist
 
-- [ ] your PR is pointed at `next` (unless it's a new release)
 - [ ] tested locally
-- [ ] installed new dependencies
+- [ ] added new dependencies
 - [ ] updated the docs
 - [ ] added a test
 

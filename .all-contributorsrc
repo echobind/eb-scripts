@@ -1,0 +1,67 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "jsjoeio",
+      "name": "JavaScript Joe",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/3806031?v=4",
+      "profile": "https://jsjoe.io",
+      "contributions": [
+        "code",
+        "doc",
+        "example",
+        "maintenance"
+      ]
+    },
+    {
+      "login": "cmejet",
+      "name": "Jenn",
+      "avatar_url": "https://avatars3.githubusercontent.com/u/7119624?v=4",
+      "profile": "https://github.com/cmejet",
+      "contributions": [
+        "review"
+      ]
+    },
+    {
+      "login": "alvincrespo",
+      "name": "Alvin Crespo",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/151311?v=4",
+      "profile": "http://alvincrespo.com",
+      "contributions": [
+        "code",
+        "doc",
+        "test",
+        "review"
+      ]
+    },
+    {
+      "login": "cball",
+      "name": "Chris Ball",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/14339?v=4",
+      "profile": "http://echobind.com",
+      "contributions": [
+        "infra",
+        "ideas",
+        "review"
+      ]
+    },
+    {
+      "login": "jeffreyzhen",
+      "name": "Jeffrey Zhen",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/13550272?v=4",
+      "profile": "http://jeffreyzhen.com",
+      "contributions": [
+        "review"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "eb-scripts",
+  "projectOwner": "echobind",
+  "repoType": "github",
+  "repoHost": "https://github.com"
+}
