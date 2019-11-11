@@ -117,18 +117,13 @@ describe("The `generate` command", () => {
     expect(componentTsxExists).toBe(true);
   });
 
-  it("works with the react-native-typescript-screen template and uses the default src/screens", async () => {
+  it.skip("works with the react-native-typescript-screen template and uses the default src/screens", async () => {
+    // TODO - finish this test
+    // Because there is a prompt, we'll need to use a spawn from child_process.
+    // Will create followup ticket.
     const pathToScreens = path.join(`${root}/src`, "/screens");
     const componentName = "ReactNativeTypeScriptScreen";
     const componentFolderPath = `${pathToScreens}/${componentName}`;
-
-    // execSync(
-    //   `./bin/run generate react-native-typescript-screen -n ${componentName}`,
-    //   {
-    //     cwd: root,
-    //     input: "FC"
-    //   }
-    // );
 
     const newComponentFolderExists = await fse.pathExists(componentFolderPath);
     const componentIndexExists = fse.existsSync(
