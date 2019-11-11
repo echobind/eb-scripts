@@ -12,7 +12,7 @@ exports[`The \`generate\` command throws an error when you pass an invalid flag 
 "Command failed: ./bin/run generate fake-component -n FakeComponent
  ›   Error: Expected fake-component to be one of: react-component, 
  ›   react-typescript-component, react-native-typescript-component, 
- ›   react-native-typescript-screen, react-native-e2e
+ ›   react-native-typescript-screen, react-native-e2e, util-typescript
  ›   See more help with --help
 "
 `;
