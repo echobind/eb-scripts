@@ -17,7 +17,8 @@ const VALID_TEMPLATE_TYPES = [
   "react-typescript-component",
   "react-native-typescript-component",
   "react-native-typescript-screen",
-  "react-native-e2e"
+  "react-native-e2e",
+  "util-typescript"
 ] as const;
 
 /**
