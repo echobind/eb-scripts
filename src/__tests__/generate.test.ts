@@ -85,7 +85,7 @@ describe("The `generate` command", () => {
     const componentFolderPath = `${tempRoot}/${componentName}`;
 
     execSync(
-      `./bin/run generate react-naeive-typescript-component -n ${componentName}`,
+      `./bin/run generate react-native-typescript-component -n ${componentName}`,
       {
         cwd: root
       }
@@ -117,7 +117,7 @@ describe("The `generate` command", () => {
     expect(componentTsxExists).toBe(true);
   });
 
-  it.skip("works with the react-native-typescript-screen template and uses the default src/screens", async () => {
+  it.skip("works with the react-native-typescript-screen template and uses the default src/screens path", async () => {
     // TODO - finish this test
     // Because there is a prompt, we'll need to use a spawn from child_process.
     // Will create followup ticket.
@@ -136,6 +136,22 @@ describe("The `generate` command", () => {
     expect(newComponentFolderExists).toBe(true);
     expect(componentIndexExists).toBe(true);
     expect(componentTsxExists).toBe(true);
+  });
+
+  it("works with the react-native-e2e template and uses the default e2e path", async () => {
+    const testName = "ReactNativeE2ETest";
+    const e2ePath = "e2e";
+    execSync(`./bin/run generate react-native-e2e -n ${testName}`, {
+      cwd: root
+    });
+    const pathToE2e = path.join(`${root}/${e2ePath}`);
+    const testFilePath = `${pathToE2e}/${testName}.spec.js`;
+
+    const newTestFileExists = await fse.pathExists(testFilePath);
+
+    expect(newTestFileExists).toBe(true);
+    // Remove the /e2e so it doesn't cause side effects
+    await fse.remove(`${root}/${e2ePath}`);
   });
 
   it("uses the default templates if none in the users directory and the default src/components path flag", async () => {
