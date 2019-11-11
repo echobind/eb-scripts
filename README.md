@@ -10,10 +10,10 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-- [eb-scripts](#eb-scripts)
-- [Usage](#usage)
-- [Commands](#commands)
-- [Contributing](#contributing)
+* [eb-scripts](#eb-scripts)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Contributing](#contributing)
 <!-- tocstop -->
 
 # Usage
@@ -24,7 +24,7 @@ $ npm install -g eb-scripts
 $ eb-scripts COMMAND
 running command...
 $ eb-scripts (-v|--version|version)
-eb-scripts/1.0.0 darwin-x64 node-v10.16.0
+eb-scripts/2.0.0 linux-x64 node-v13.1.0
 $ eb-scripts --help [COMMAND]
 USAGE
   $ eb-scripts COMMAND
@@ -35,10 +35,11 @@ USAGE
 # Commands
 
 <!-- commands -->
-* [`eb-scripts generate [COMPONENT NAME]`](#eb-scripts-generate-component-name)
+* [`eb-scripts generate TEMPLATENAME`](#eb-scripts-generate-templatename)
 * [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
+* [`eb-scripts init PROJECT`](#eb-scripts-init-project)
 
-## `eb-scripts generate [COMPONENT NAME]`
+## `eb-scripts generate TEMPLATENAME`
 
 generates new files
 
@@ -61,7 +62,7 @@ EXAMPLE
        added: src/MyNewComponent.js
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v1.0.0/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v2.0.0/src/commands/generate.ts)_
 
 ## `eb-scripts help [COMMAND]`
 
@@ -80,6 +81,26 @@ OPTIONS
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
 
+## `eb-scripts init PROJECT`
+
+initializes project by installing `eb-scripts` and adding scripts to `package.json`
+
+```
+USAGE
+  $ eb-scripts init PROJECT
+
+ARGUMENTS
+  PROJECT  (react|react-typescript|react-native-typescript) The language or framework of the project.
+           Valid options: react,react-typescript,react-native-typescript
+
+OPTIONS
+  -h, --help  show CLI help
+
+EXAMPLE
+  $ npx eb-scripts init react
+```
+
+_See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v2.0.0/src/commands/init.ts)_
 <!-- commandsstop -->
 
 # Contributing
