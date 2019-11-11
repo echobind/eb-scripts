@@ -10,15 +10,17 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-* [eb-scripts](#eb-scripts)
-* [Usage](#usage)
-* [Commands](#commands)
-* [Contributing](#contributing)
-<!-- tocstop -->
+
+- [eb-scripts](#eb-scripts)
+- [Usage](#usage)
+- [Commands](#commands)
+- [Contributing](#contributing)
+  <!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
+
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
@@ -30,6 +32,7 @@ USAGE
   $ eb-scripts COMMAND
 ...
 ```
+
 <!-- usagestop -->
 
 # Commands
@@ -49,12 +52,13 @@ USAGE
   $ eb-scripts generate TEMPLATENAME
 
 ARGUMENTS
-  TEMPLATENAME  (react-component|react-typescript-component) the template you want to use
+  TEMPLATENAME  (react-component|react-typescript-component|react-native-typescript-component|react-native-typescript-sc
+                reen|react-native-e2e|util-typescript) the template you want to use
 
 OPTIONS
   -h, --help       show CLI help
   -n, --name=name  [default: MyNewComponent] name to print
-  -p, --path=path  [default: src/components] path to where you want the files to go
+  -p, --path=path  path to where you want the files to go
 
 EXAMPLE
   $ eb-scripts generate react-component -n MyNewComponent -p src/components
@@ -90,8 +94,8 @@ USAGE
   $ eb-scripts init PROJECT
 
 ARGUMENTS
-  PROJECT  (react|react-typescript) The language or framework of the project.
-           Valid options: react,react-typescript
+  PROJECT  (react|react-typescript|react-native-typescript) The language or framework of the project.
+           Valid options: react,react-typescript,react-native-typescript
 
 OPTIONS
   -h, --help  show CLI help
@@ -101,6 +105,7 @@ EXAMPLE
 ```
 
 _See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0-development/src/commands/init.ts)_
+
 <!-- commandsstop -->
 
 # Contributing

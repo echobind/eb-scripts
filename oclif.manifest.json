@@ -29,8 +29,7 @@
           "name": "path",
           "type": "option",
           "char": "p",
-          "description": "path to where you want the files to go",
-          "default": "src/components"
+          "description": "path to where you want the files to go"
         }
       },
       "args": [
@@ -38,7 +37,14 @@
           "name": "templateName",
           "description": "the template you want to use",
           "required": true,
-          "options": ["react-component", "react-typescript-component"]
+          "options": [
+            "react-component",
+            "react-typescript-component",
+            "react-native-typescript-component",
+            "react-native-typescript-screen",
+            "react-native-e2e",
+            "util-typescript"
+          ]
         }
       ]
     },
@@ -61,9 +67,9 @@
       "args": [
         {
           "name": "project",
-          "description": "The language or framework of the project.\nValid options: react,react-typescript",
+          "description": "The language or framework of the project.\nValid options: react,react-typescript,react-native-typescript",
           "required": true,
-          "options": ["react", "react-typescript"]
+          "options": ["react", "react-typescript", "react-native-typescript"]
         }
       ]
     }
