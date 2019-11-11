@@ -177,6 +177,27 @@ describe("The `generate` command", () => {
     await fse.remove(pathToUtils);
   });
 
+  it("uses the path flag if passed", async () => {
+    const componentName = "PathFlagComponent";
+    const customPath = "src/components/other";
+    const componentFolderPath = `${customPath}/${componentName}`;
+
+    execSync(
+      `./bin/run generate react-component -n ${componentName} -p ${customPath}`,
+      {
+        cwd: root
+      }
+    );
+
+    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+    const componentIndexExists = fse.existsSync(
+      `${componentFolderPath}/index.js`
+    );
+
+    expect(newComponentFolderExists).toBe(true);
+    expect(componentIndexExists).toBe(true);
+  });
+
   it("uses the default templates if none in the users directory and the default src/components path flag", async () => {
     const componentName = "DefaultTemplateComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;
@@ -201,27 +222,6 @@ describe("The `generate` command", () => {
       });
 
     expect(generateCommand).toThrowErrorMatchingSnapshot();
-  });
-
-  it("uses the path flag if passed", async () => {
-    const componentName = "PathFlagComponent";
-    const customPath = "src/components/other";
-    const componentFolderPath = `${customPath}/${componentName}`;
-
-    execSync(
-      `./bin/run generate react-component -n ${componentName} -p ${customPath}`,
-      {
-        cwd: root
-      }
-    );
-
-    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
-    const componentIndexExists = fse.existsSync(
-      `${componentFolderPath}/index.js`
-    );
-
-    expect(newComponentFolderExists).toBe(true);
-    expect(componentIndexExists).toBe(true);
   });
 
   it("uses the users template if they have one", async () => {
