@@ -72,7 +72,6 @@ export default class Init extends Command {
 
   async run() {
     const { args } = this.parse(Init);
-    console.log("hello args", args);
     const project = args.project || DEFAULT_PROJECT_NAME;
     // Grab their package Json
     const packageJsonLocation = `${pathWhereScriptIsRunning}/package.json`;
