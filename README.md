@@ -10,17 +10,15 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-
 - [eb-scripts](#eb-scripts)
 - [Usage](#usage)
 - [Commands](#commands)
 - [Contributing](#contributing)
-  <!-- tocstop -->
+<!-- tocstop -->
 
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
@@ -32,7 +30,6 @@ USAGE
   $ eb-scripts COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
@@ -40,9 +37,8 @@ USAGE
 <!-- commands -->
 * [`eb-scripts generate [COMPONENT NAME]`](#eb-scripts-generate-component-name)
 * [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
-* [`eb-scripts init PROJECT`](#eb-scripts-init-project)
 
-## `eb-scripts generate TEMPLATENAME`
+## `eb-scripts generate [COMPONENT NAME]`
 
 generates new files
 
@@ -83,27 +79,6 @@ OPTIONS
 ```
 
 _See code: [@oclif/plugin-help](https://github.com/oclif/plugin-help/blob/v2.2.1/src/commands/help.ts)_
-
-## `eb-scripts init PROJECT`
-
-initializes project by installing `eb-scripts` and adding scripts to `package.json`
-
-```
-USAGE
-  $ eb-scripts init PROJECT
-
-ARGUMENTS
-  PROJECT  (react|react-typescript|react-native-typescript) The language or framework of the project.
-           Valid options: react,react-typescript,react-native-typescript
-
-OPTIONS
-  -h, --help  show CLI help
-
-EXAMPLE
-  $ npx eb-scripts init react
-```
-
-_See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v0.0.0-development/src/commands/init.ts)_
 
 <!-- commandsstop -->
 
