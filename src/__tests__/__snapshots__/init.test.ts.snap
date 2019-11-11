@@ -2,17 +2,17 @@
 
 exports[`The \`init\` command throws an error if you don't pass an argument for the project type 1`] = `
 "Command failed: ./bin/run init
- [31m›[39m   Error: Missing 1 required arg:
- [31m›[39m   project  The language or framework of the project.
- [31m›[39m             Valid options: react,react-typescript,react-native-typescript
- [31m›[39m   See more help with --help
+ ›   Error: Missing 1 required arg:
+ ›   project  The language or framework of the project.
+ ›             Valid options: react,react-typescript,react-native-typescript
+ ›   See more help with --help
 "
 `;
 
 exports[`The \`init\` command throws an error when you pass an invalid flag 1`] = `
 "Command failed: ./bin/run init rust
- [31m›[39m   Error: Expected rust to be one of: react, react-typescript, 
- [31m›[39m   react-native-typescript
- [31m›[39m   See more help with --help
+ ›   Error: Expected rust to be one of: react, react-typescript, 
+ ›   react-native-typescript
+ ›   See more help with --help
 "
 `;
