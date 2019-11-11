@@ -11,8 +11,13 @@ Please note we have a code of conduct, please follow it in all your interactions
 
 1. Ensure any install or build dependencies are removed before the end of the layer when doing a
    build.
-2. Update the README.md as needed. We use `oclif` to autogenerate documentation for the commands.
-3. Open a Pull Request into the `next` - we use this as our release branch. We use [`semantic-release`](https://github.com/semantic-release/semantic-release). After the `next` branch is merged into `master`, the npm package will be updated and your changes will be live.
+2. Update the README.md as needed. We use `oclif` to autogenerate documentation for the commands so no need to touch the README there.
+3. Open a Pull Request into the `master` - we use this as our release branch. We use [`semantic-release`](https://github.com/semantic-release/semantic-release). Merges into releases are [automatically triggered](https://github.com/semantic-release/semantic-release#commit-message-format), based on the following commit message types:
+
+- fix = patch release
+- feat = minor release
+- BREAKING CHANGE = major release
+
 4. You may merge the Pull Request in once you have the sign-off of one other developers, or if you
    do not have permission to do that, you may request the second reviewer to merge it for you.
 
