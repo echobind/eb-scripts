@@ -154,13 +154,16 @@ describe("The `generate` command", () => {
     await fse.remove(`${root}/${e2ePath}`);
   });
 
-  it("works with the util-typescript template and uses the default src/utils path", async () => {
+  it("works with the util-typescript template ", async () => {
     const testName = "CoolFunction";
     const utilsPath = "utils";
-    execSync(`./bin/run generate util-typescript -n ${testName}`, {
-      cwd: root
-    });
-    const pathToUtils = path.join(`${root}/src`, `/${utilsPath}`);
+    execSync(
+      `./bin/run generate util-typescript -n ${testName} -p ${utilsPath}`,
+      {
+        cwd: root
+      }
+    );
+    const pathToUtils = path.join(`${root}/`, `${utilsPath}`);
     const utilTestFilePath = `${pathToUtils}/${testName}/test.ts`;
     const utilFilePath = `${pathToUtils}/${testName}/${testName}.ts`;
     const utilIndexFilePath = `${pathToUtils}/${testName}/index.ts`;
@@ -172,7 +175,7 @@ describe("The `generate` command", () => {
     expect(newTestFileExists).toBe(true);
     expect(newUtilFileExists).toBe(true);
     expect(newUtilIndexFileExists).toBe(true);
-    // Remove the /e2e so it doesn't cause side effects
+    // Remove the / so it doesn't cause side effects
     await fse.remove(pathToUtils);
   });
 
