@@ -154,6 +154,28 @@ describe("The `generate` command", () => {
     await fse.remove(`${root}/${e2ePath}`);
   });
 
+  it("works with the util-typescript template and uses the default src/utils path", async () => {
+    const testName = "CoolFunction";
+    const utilsPath = "utils";
+    execSync(`./bin/run generate util-typescript -n ${testName}`, {
+      cwd: root
+    });
+    const pathToUtils = path.join(`${root}/src`, `/${utilsPath}`);
+    const utilTestFilePath = `${pathToUtils}/${testName}/test.ts`;
+    const utilFilePath = `${pathToUtils}/${testName}/${testName}.ts`;
+    const utilIndexFilePath = `${pathToUtils}/${testName}/index.ts`;
+
+    const newTestFileExists = await fse.pathExists(utilTestFilePath);
+    const newUtilFileExists = await fse.pathExists(utilFilePath);
+    const newUtilIndexFileExists = await fse.pathExists(utilIndexFilePath);
+
+    expect(newTestFileExists).toBe(true);
+    expect(newUtilFileExists).toBe(true);
+    expect(newUtilIndexFileExists).toBe(true);
+    // Remove the /e2e so it doesn't cause side effects
+    await fse.remove(pathToUtils);
+  });
+
   it("uses the default templates if none in the users directory and the default src/components path flag", async () => {
     const componentName = "DefaultTemplateComponent";
     const componentFolderPath = `${tempRoot}/${componentName}`;

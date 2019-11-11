@@ -11,6 +11,7 @@ const DEFAULT_TEMPLATE_NAME = "react-component";
 const DEFAULT_COMPONENT_PATH = "src/components";
 const DEFAULT_SCREEN_PATH = "src/screens";
 const DEFAULT_E2E_PATH = "e2e";
+const DEFAULT_UTILS_PATH = "src/utils";
 // "as const" returns a readonly union type of strings from the array
 const VALID_TEMPLATE_TYPES = [
   "react-component",
@@ -91,6 +92,10 @@ export default class Generate extends Command {
 
     if (template === "react-native-e2e") {
       DEFAULT_PATH = DEFAULT_E2E_PATH;
+    }
+
+    if (template === "util-typescript") {
+      DEFAULT_PATH = DEFAULT_UTILS_PATH;
     }
 
     // The path where the files will go when generated
