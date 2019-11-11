@@ -10,13 +10,12 @@ A CLI and scripts used at Echobind
 [![License](https://img.shields.io/npm/l/eb-scripts.svg)](https://github.com/echobind/eb-scripts/blob/master/package.json)
 
 <!-- toc -->
-
-- [eb-scripts](#eb-scripts)
-- [Quickstart](#quickstart)
-- [Usage](#usage)
-- [Commands](#commands)
-- [Contributing](#contributing)
-  <!-- tocstop -->
+* [eb-scripts](#eb-scripts)
+* [Quickstart](#quickstart)
+* [Usage](#usage)
+* [Commands](#commands)
+* [Contributing](#contributing)
+<!-- tocstop -->
 
 # Quickstart
 
@@ -31,28 +30,25 @@ This will install `eb-scripts` as a `devDependency` and add a few helpful `hygen
 # Usage
 
 <!-- usage -->
-
 ```sh-session
 $ npm install -g eb-scripts
 $ eb-scripts COMMAND
 running command...
 $ eb-scripts (-v|--version|version)
-eb-scripts/2.0.0 linux-x64 node-v13.1.0
+eb-scripts/2.0.1 linux-x64 node-v13.1.0
 $ eb-scripts --help [COMMAND]
 USAGE
   $ eb-scripts COMMAND
 ...
 ```
-
 <!-- usagestop -->
 
 # Commands
 
 <!-- commands -->
-
-- [`eb-scripts generate TEMPLATENAME`](#eb-scripts-generate-templatename)
-- [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
-- [`eb-scripts init PROJECT`](#eb-scripts-init-project)
+* [`eb-scripts generate TEMPLATENAME`](#eb-scripts-generate-templatename)
+* [`eb-scripts help [COMMAND]`](#eb-scripts-help-command)
+* [`eb-scripts init PROJECT`](#eb-scripts-init-project)
 
 ## `eb-scripts generate TEMPLATENAME`
 
@@ -77,7 +73,7 @@ EXAMPLE
        added: src/MyNewComponent.js
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v2.0.0/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v2.0.1/src/commands/generate.ts)_
 
 ## `eb-scripts help [COMMAND]`
 
@@ -115,8 +111,7 @@ EXAMPLE
   $ npx eb-scripts init react
 ```
 
-_See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v2.0.0/src/commands/init.ts)_
-
+_See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v2.0.1/src/commands/init.ts)_
 <!-- commandsstop -->
 
 # Contributing
