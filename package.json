@@ -46,7 +46,8 @@
     "/bin",
     "/lib",
     "/npm-shrinkwrap.json",
-    "/oclif.manifest.json"
+    "/oclif.manifest.json",
+    "/_templates"
   ],
   "homepage": "https://github.com/echobind/eb-scripts",
   "keywords": [
@@ -63,8 +64,9 @@
   },
   "repository": "echobind/eb-scripts",
   "scripts": {
+    "build": "tsc",
     "postpack": "rm -f oclif.manifest.json",
-    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme",
+    "prepack": "rm -rf lib && tsc -b && oclif-dev manifest && oclif-dev readme && yarn build",
     "test": "jest --runInBand",
     "version": "oclif-dev readme && git add README.md",
     "gen": "hygen",
