@@ -225,6 +225,11 @@ describe("The `generate` command", () => {
   });
 
   it("uses the users template if they have one", async () => {
+    // Rename the react-component template to keep as a
+    await fse.renameSync(
+      `${root}/_templates/react-component`,
+      `${root}/_templates/react-backup-component`
+    );
     const pathToNewTemplate = `${root}/_templates/react-component/new`;
     const newComponentName = "Test";
     // Make a react-component template
@@ -260,7 +265,12 @@ describe("The `generate` command", () => {
 
     expect(newGeneratedComponentExists).toBe(true);
     expect(newGeneratedComponentFolderExists).toBe(false);
-    // Remove the /_templates so it doesn't cause side effects
-    await fse.remove(`${root}/_templates`);
+    // Remove the react-component template we created
+    await fse.remove(`${root}/_templates/react-component`);
+    // Restore our original component
+    await fse.renameSync(
+      `${root}/_templates/react-backup-component`,
+      `${root}/_templates/react-component`
+    );
   });
 });
