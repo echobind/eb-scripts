@@ -1,8 +1,7 @@
 ---
 inject: true
-to: storybook/stories/index.ts
-skip_if: components/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>
+to: <%= root %>/storybook/stories/index.ts
 append: true
 ---
 <% formattedName = h.inflection.transform(name, ['undasherize', 'classify']) -%>
-import '../../src/components/<%= formattedName %>/<%= formattedName %>.stories';
+import '../../<%= root %>/<%= path %>/<%= formattedName %>/<%= formattedName %>.stories';
