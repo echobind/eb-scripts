@@ -2,7 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 // The root of our package, so that we can leverage the scripts in the `package.json`
-export const rootDirectory = path.join(__dirname, "..");
+export const rootDirectory = path.join(__dirname);
 
 export const DEFAULT_TEMPLATE_PATH = `${rootDirectory}/_templates`;
 
