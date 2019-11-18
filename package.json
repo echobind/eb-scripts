@@ -1,7 +1,7 @@
 {
   "name": "eb-scripts",
   "description": "A CLI and scripts used at Echobind",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "author": "Joe Previte @jsjoeio",
   "bin": {
     "eb-scripts": "./bin/run"
