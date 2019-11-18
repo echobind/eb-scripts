@@ -3,5 +3,6 @@ inject: true
 to: <%= root %>/storybook/stories/index.ts
 append: true
 ---
+
 <% formattedName = h.inflection.transform(name, ['undasherize', 'classify']) -%>
-import '../../<%= root %>/<%= path %>/<%= formattedName %>/<%= formattedName %>.stories';
+import '../../<%= path %>/<%= formattedName %>/<%= formattedName %>.stories';
