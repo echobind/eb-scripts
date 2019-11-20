@@ -81,7 +81,7 @@ describe("The `generate` command", () => {
   });
   describe("react-native-typescript", () => {
     it("component template works and uses the default src/components path flag", async () => {
-      const componentName = "Reactnativetypescriptcomponent";
+      const componentName = "ReactNativeTtypescriptComponent";
       const componentFolderPath = `${tempRoot}/${componentName}`;
 
       execSync(
