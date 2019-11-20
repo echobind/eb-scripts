@@ -35,7 +35,7 @@ $ npm install -g eb-scripts
 $ eb-scripts COMMAND
 running command...
 $ eb-scripts (-v|--version|version)
-eb-scripts/2.0.5 linux-x64 node-v13.1.0
+eb-scripts/2.0.6 linux-x64 node-v13.1.0
 $ eb-scripts --help [COMMAND]
 USAGE
   $ eb-scripts COMMAND
@@ -73,7 +73,7 @@ EXAMPLE
        added: src/MyNewComponent.js
 ```
 
-_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v2.0.5/src/commands/generate.ts)_
+_See code: [src/commands/generate.ts](https://github.com/echobind/eb-scripts/blob/v2.0.6/src/commands/generate.ts)_
 
 ## `eb-scripts help [COMMAND]`
 
@@ -111,7 +111,7 @@ EXAMPLE
   $ npx eb-scripts init react
 ```
 
-_See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v2.0.5/src/commands/init.ts)_
+_See code: [src/commands/init.ts](https://github.com/echobind/eb-scripts/blob/v2.0.6/src/commands/init.ts)_
 <!-- commandsstop -->
 
 # Contributing
