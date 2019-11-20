@@ -4,5 +4,5 @@ to: <%= root %>/storybook/stories/index.ts
 append: true
 ---
 
-<% formattedName = h.inflection.transform(name, ['undasherize', 'classify']) -%>
+<% formattedName = h.changeCase.pascal(name) -%>
 import '../../<%= path %>/<%= formattedName %>/<%= formattedName %>.stories';

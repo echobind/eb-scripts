@@ -79,61 +79,102 @@ describe("The `generate` command", () => {
     expect(componentIndexExists).toBe(true);
     expect(componentTsxExists).toBe(true);
   });
+  describe("react-native-typescript", () => {
+    it("component template works and uses the default src/components path flag", async () => {
+      const componentName = "ReactNativeTypeScriptComponent";
+      const componentFolderPath = `${tempRoot}/${componentName}`;
 
-  it("works with the react-native-typescript-component template and uses the default src/components path flag", async () => {
-    const componentName = "Reactnativetypescriptcomponent";
-    const componentFolderPath = `${tempRoot}/${componentName}`;
-
-    execSync(
-      `./bin/run generate react-native-typescript-component -n ${componentName}`,
-      {
-        cwd: root
-      }
-    );
-
-    const newComponentFolderExists = await fse.pathExists(componentFolderPath);
-    const componentIndexExists = fse.existsSync(
-      `${componentFolderPath}/index.ts`
-    );
-    const componentTsxExists = fse.existsSync(
-      `${componentFolderPath}/${componentName}.tsx`
-    );
-
-    //Check if they have a storybook setup
-    const hasStoryBookDir = fse.existsSync(
-      `${tempRoot}/storybook/stories/index.ts`
-    );
-
-    // If they do,
-    // we assert that a .stories.tsx file was generated
-    if (hasStoryBookDir) {
-      const componentStoriesExists = fse.existsSync(
-        `${componentFolderPath}/${componentName}.stories.tsx`
+      execSync(
+        `./bin/run generate react-native-typescript-component -n ${componentName}`,
+        {
+          cwd: root
+        }
       );
-      expect(componentStoriesExists).toBe(true);
-    }
-    expect(newComponentFolderExists).toBe(true);
-    expect(componentIndexExists).toBe(true);
-    expect(componentTsxExists).toBe(true);
-  });
 
-  it.skip("works with the react-native-typescript-screen template and uses the default src/screens path", async () => {
-    // TODO - finish this test
-    // Because there is a prompt, we'll need to use a spawn from child_process.
-    // Will create followup ticket.
-    // const pathToScreens = path.join(`${root}/src`, "/screens");
-    // const componentName = "ReactNativeTypeScriptScreen";
-    // const componentFolderPath = `${pathToScreens}/${componentName}`;
-    // const newComponentFolderExists = await fse.pathExists(componentFolderPath);
-    // const componentIndexExists = fse.existsSync(
-    //   `${componentFolderPath}/index.ts`
-    // );
-    // const componentTsxExists = fse.existsSync(
-    //   `${componentFolderPath}/${componentName}.tsx`
-    // );
-    // expect(newComponentFolderExists).toBe(true);
-    // expect(componentIndexExists).toBe(true);
-    // expect(componentTsxExists).toBe(true);
+      const newComponentFolderExists = await fse.pathExists(
+        componentFolderPath
+      );
+      const componentIndexExists = fse.existsSync(
+        `${componentFolderPath}/index.ts`
+      );
+      const componentTsxExists = fse.existsSync(
+        `${componentFolderPath}/${componentName}.tsx`
+      );
+
+      //Check if they have a storybook setup
+      const hasStoryBookDir = fse.existsSync(
+        `${tempRoot}/storybook/stories/index.ts`
+      );
+
+      // If they do,
+      // we assert that a .stories.tsx file was generated
+      if (hasStoryBookDir) {
+        const componentStoriesExists = fse.existsSync(
+          `${componentFolderPath}/${componentName}.stories.tsx`
+        );
+        expect(componentStoriesExists).toBe(true);
+      }
+      expect(newComponentFolderExists).toBe(true);
+      expect(componentIndexExists).toBe(true);
+      expect(componentTsxExists).toBe(true);
+    });
+    it("component template properly cases and removes dashes", async () => {
+      const componentName = "myCool-other-component";
+      const expectedComponentName = "MyCoolOtherComponent";
+      const componentFolderPath = `${tempRoot}/${expectedComponentName}`;
+
+      execSync(
+        `./bin/run generate react-native-typescript-component -n ${componentName}`,
+        {
+          cwd: root
+        }
+      );
+
+      const newComponentFolderExists = await fse.pathExists(
+        componentFolderPath
+      );
+      const componentIndexExists = fse.existsSync(
+        `${componentFolderPath}/index.ts`
+      );
+      const componentTsxExists = fse.existsSync(
+        `${componentFolderPath}/${expectedComponentName}.tsx`
+      );
+
+      //Check if they have a storybook setup
+      const hasStoryBookDir = fse.existsSync(
+        `${tempRoot}/storybook/stories/index.ts`
+      );
+
+      // If they do,
+      // we assert that a .stories.tsx file was generated
+      if (hasStoryBookDir) {
+        const componentStoriesExists = fse.existsSync(
+          `${componentFolderPath}/${expectedComponentName}.stories.tsx`
+        );
+        expect(componentStoriesExists).toBe(true);
+      }
+      expect(newComponentFolderExists).toBe(true);
+      expect(componentIndexExists).toBe(true);
+      expect(componentTsxExists).toBe(true);
+    });
+    it.skip("works with the react-native-typescript-screen template and uses the default src/screens path", async () => {
+      // TODO - finish this test
+      // Because there is a prompt, we'll need to use a spawn from child_process.
+      // Will create followup ticket.
+      // const pathToScreens = path.join(`${root}/src`, "/screens");
+      // const componentName = "ReactNativeTypeScriptScreen";
+      // const componentFolderPath = `${pathToScreens}/${componentName}`;
+      // const newComponentFolderExists = await fse.pathExists(componentFolderPath);
+      // const componentIndexExists = fse.existsSync(
+      //   `${componentFolderPath}/index.ts`
+      // );
+      // const componentTsxExists = fse.existsSync(
+      //   `${componentFolderPath}/${componentName}.tsx`
+      // );
+      // expect(newComponentFolderExists).toBe(true);
+      // expect(componentIndexExists).toBe(true);
+      // expect(componentTsxExists).toBe(true);
+    });
   });
 
   it("works with the react-native-e2e template and uses the default e2e path", async () => {

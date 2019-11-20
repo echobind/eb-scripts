@@ -1,7 +1,7 @@
 ---
-to: <%= root %>/<%= path %>/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>.tsx
+to: <%= root %>/<%= path %>/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.tsx
 ---
-<% const formattedName = h.inflection.transform(name, ['undasherize', 'classify']) -%>
+<% const formattedName = h.changeCase.pascal(name) -%>
 import React, { FC } from 'react';
 
 import { Container } from '../Container';
