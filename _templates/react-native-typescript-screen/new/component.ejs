@@ -1,7 +1,7 @@
 ---
-to: <%= root %>/<%= path %>/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>/<%= h.inflection.transform(name, ['undasherize', 'classify']) %>.tsx
+to: <%= root %>/<%= path %>/<%= h.changeCase.pascal(name) %>/<%= h.changeCase.pascal(name) %>.tsx
 ---
-<% const comp = h.inflection.transform(name, ['undasherize', 'classify']) -%>
+<% const comp = h.changeCase.pascal(name) -%>
 <% if(componentType === 'Class') { -%>
 import React, { Component } from 'react';
 import styled from '@emotion/native';
